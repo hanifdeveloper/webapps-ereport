@@ -11,10 +11,10 @@ class reports extends Model{
         parent::setConnection('ereport');
         parent::setDefaultValue(array(
 			'id_satker' => $this->createRandomID(5),
-			'id_cek_tahanan' => $this->createDateID(),
+			'id_cek_tahanan' => $this->createRandomID(10),
 			'id_cek_kebakaran' => $this->createDateID(),
 			'id_document_upload' => $this->createDateID(),
-			'dateTime' => date('Y-m-d H:i:s'),
+			'datetime' => date('Y-m-d H:i:s'),
 		));
 	}
 
@@ -47,24 +47,32 @@ class reports extends Model{
 	public function getListKategoriUpload(){
 		return [
 			'cek_tahanan' => [
-				'Air Mengalir', 
-				'Air Tidak Mengalir',
-				'Foto Penggeledahan Badan Tahanan',
-				'Foto Pengecekan Jeruji',
-        		'Foto Penggeledahan Barang-barang Tahanan',
-				'Foto Pengecekan Jendela/Ventilasi',
-        		'Foto Pengecekan Tembok/Dinding',
-				'Foto Kondisi CCTV',
-				'Foto Pengecekan Platfon',
+				'CT01' => 'Foto Penggeledahan Badan Tahanan',
+				'CT02' => 'Foto Pengecekan Jeruji',
+        		'CT03' => 'Foto Penggeledahan Barang-barang Tahanan',
+				'CT04' => 'Foto Pengecekan Jendela/Ventilasi',
+        		'CT05' => 'Foto Pengecekan Tembok/Dinding',
+				'CT06' => 'Foto Kondisi CCTV',
+				'CT07' => 'Foto Pengecekan Platfon',
 			],
 			'cek_kebakaran' => [
-				'Foto Pengecekan Instalasi Listrik',
-        		'Foto Pengecekan AC',
-				'Foto Pengecekan Komputer',
-        		'Foto Pengecekan Saklar/Stop Kontak',
-				'Alat Pemadam Kebakaran',
+				'CK01' => 'Foto Pengecekan Instalasi Listrik',
+        		'CK02' => 'Foto Pengecekan AC',
+				'CK03' => 'Foto Pengecekan Komputer',
+        		'CK04' => 'Foto Pengecekan Saklar/Stop Kontak',
+				'CK05' => 'Alat Pemadam Kebakaran',
 			],
 		];
+	}
+
+	public function getPilihanSatker(){
+		$result = [];
+		$data = $this->getData('SELECT * FROM tb_satker ORDER BY id_satker');
+		foreach ($data['value'] as $key => $value) {
+			$result[$value['id_satker']] = ['text' => $value['nama_satker']];
+		}
+
+		return $result;
 	}
 
 	public function getFormSatker($id = ''){
@@ -90,14 +98,33 @@ class reports extends Model{
 	}
 
 	public function getFormCekTahananSatker($satker){
-		$form = $this->getTabel('tb_cek_tahanan');
-		$data = $this->getData('SELECT * FROM tb_cek_tahanan WHERE (satker_id = ?) AND (date(datetime) = ?) LIMIT 1', [$satker, date('Y-m-d')]);
-		$form = ($data['count'] > 0) ? $this->paramsFilter($form, $data['value'][0]) : $form;
-		$result['form_entry'] = $form;
-		$result['form_upload'] = $form;
+		$dataEntry = $this->getData('SELECT * FROM tb_cek_tahanan WHERE (satker_id = ?) AND (date(datetime) = ?) LIMIT 1', [$satker, date('Y-m-d')]);
+		$formEntry = $this->getTabel('tb_cek_tahanan');
+		$formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
+		
+		// $formUpload = $this->getDataTabel('tb_document_upload', ['cek_id', $formEntry['id_cek_tahanan']]);
+		$cek_id = $formEntry['id_cek_tahanan'];
+		$formUpload = $this->getTabel('tb_document_upload');
+		$listUpload = $this->getListKategoriUpload()['cek_tahanan'];
+		$formListUpload = [];
+		foreach ($listUpload as $key => $value) {
+			$formUpload['id_document_upload']++;
+			$dataUpload = $this->getData('SELECT * FROM tb_document_upload WHERE (cek_id = ?) AND (category_document = ?) LIMIT 1', [$cek_id, $key]);
+			if ($dataUpload['count'] > 0) {
+				array_push($formListUpload, $dataUpload['value'][0]);
+			}
+			else {
+				$dataUpload = $formUpload;
+				$dataUpload['cek_id'] = $cek_id;
+				$dataUpload['category_document'] = $key;
+				array_push($formListUpload, $dataUpload);
+			}
+		}
+
+		$result['form_entry'] = $formEntry;
+		$result['form_list_upload'] = $formListUpload;
 		$result['form_title'] = empty($id) ? 'Input Cek Tahanan' : 'Edit Cek Tahanan';
 		$result['pilihan_kondisi'] = $this->getKondisi();
-		$result['daftar_upload'] = $this->getListKategoriUpload()['cek_tahanan'];
 		return $result;
 	}
 
@@ -109,15 +136,29 @@ class reports extends Model{
 		$q_value = 'SELECT * '.$query.' ORDER BY group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts '.$query;
 		$keyValue = [$cari, $group];
-		$size = 10;
+		$size = $params['size'];
 		$cursor = ($page - 1) * $size;
-		$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			array_push($contents, $value);
+		}
+		
 		$dataCount = $this->getData($q_count, $keyValue);
 		$result['number'] = $cursor + 1;
 		$result['page'] = $page;
-		$result['size'] = $size;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
 		$result['total'] = $dataCount['value'][0]['counts'];
-		$result['contents'] = $dataValue['value'];
+		$result['contents'] = $contents;
 		// $result['query'] = $dataValue['query'];
 		return $result;
 	}

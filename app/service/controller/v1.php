@@ -52,7 +52,7 @@ class v1 extends application{
 						break;
 
 					case 'list':
-						$input = $reports->paramsFilter(['page' => 1, 'cari' => '', 'group' => ''], $input);
+						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'group' => ''], $input);
 						$data = $reports->getListSatker($input);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);

@@ -7,34 +7,30 @@ POST {{baseUrl}}/ereport/satker/form
 token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
-id=54TYD
+# id=54TYD
+id=
 
 ### Satker (List)
 POST {{baseUrl}}/ereport/satker/list
 token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
-page=1&cari=&group=
+page=1&size=10&cari=&group=
 
 ### Satker (Save)
 POST {{baseUrl}}/ereport/satker/save
 token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
-id_satker=54TYD&nama_satker=Polresta Pontianak Kota&group_satker=&password=ereport
-
-
-
-
-
-
-
-
-
-
-
-
-
+# id_satker=54TYD&nama_satker=Polresta Pontianak Kota&group_satker=&password=ereport
+# id_satker=H9XOF&nama_satker=Polsek Pontianak Barat&group_satker=54TYD&password=ereport
+# id_satker=UFZHT&nama_satker=Polsek Pontianak Selatan&group_satker=54TYD&password=ereport
+# id_satker=7QXVP&nama_satker=Polresta Singkawang&group_satker=&password=ereport
+# id_satker=Q15SC&nama_satker=Polsek Singkawang Barat&group_satker=7QXVP&password=ereport
+# id_satker=SLGDB&nama_satker=Polsek Singkawang Tengah&group_satker=7QXVP&password=ereport
+# id_satker=2L8J1&nama_satker=Polresta Landak&group_satker=&password=ereport
+# id_satker=N8K8V&nama_satker=Polsek Sebangki&group_satker=2L8J1&password=ereport
+# id_satker=WRMUH&nama_satker=Polsek Ngabang&group_satker=2L8J1&password=ereport
 
 
 ### Form Cek Tahanan
