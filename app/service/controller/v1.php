@@ -45,6 +45,22 @@ class v1 extends application{
 
 			case 'satker':
 				switch ($action) {
+					case 'login':
+						$input = $reports->paramsFilter(['satker' => '', 'password' => ''], $input);
+						$data = $reports->satkerLogin($input);
+						$this->errorMsg = !empty($data) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Login berhasil',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => 'Login gagal',
+											)); 
+
+						$this->showResponse($this->errorMsg);
+						break;
+
 					case 'form':
 						$data = $reports->getFormSatker($input['id']);
 						$this->succesMsg['data'] = $data;
@@ -86,6 +102,20 @@ class v1 extends application{
 				switch ($action) {
 					case 'form':
 						$data = $reports->getFormCekTahananSatker($input['satker']);
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
+					
+					default:
+						$this->showResponse($this->errorMsg, $this->errorCode);
+						break;
+				}
+				break;
+
+			case 'kebakaran':
+				switch ($action) {
+					case 'form':
+						$data = $reports->getFormCekKebakaranSatker($input['satker']);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
 						break;

@@ -2,6 +2,13 @@
 @baseUrl = http://localhost:8085/api/v1
 @token = grsosr7ov6mmt84k5m1av95od2
 
+### Satker (Login)
+POST {{baseUrl}}/ereport/satker/login
+token: {{token}}
+Content-Type: application/x-www-form-urlencoded
+
+satker=54TYD&password=ereport
+
 ### Satker (Form Add/Edit)
 POST {{baseUrl}}/ereport/satker/form
 token: {{token}}
@@ -35,6 +42,13 @@ Content-Type: application/x-www-form-urlencoded
 
 ### Form Cek Tahanan
 POST {{baseUrl}}/ereport/tahanan/form
+token: {{token}}
+Content-Type: application/x-www-form-urlencoded
+
+satker=""
+
+### Form Cek Kebakaran
+POST {{baseUrl}}/ereport/kebakaran/form
 token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 

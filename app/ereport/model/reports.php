@@ -12,7 +12,7 @@ class reports extends Model{
         parent::setDefaultValue(array(
 			'id_satker' => $this->createRandomID(5),
 			'id_cek_tahanan' => $this->createRandomID(10),
-			'id_cek_kebakaran' => $this->createDateID(),
+			'id_cek_kebakaran' => $this->createRandomID(10),
 			'id_document_upload' => $this->createDateID(),
 			'datetime' => date('Y-m-d H:i:s'),
 		));
@@ -26,6 +26,7 @@ class reports extends Model{
         return date('YmdHis');
 	}
 	
+	// Form Entry Cek Tahanan
 	public function getKondisi(){
 		return [
 			'kamar_mandi' => ['Air Mengalir', 'Air Tidak Mengalir'],
@@ -102,7 +103,6 @@ class reports extends Model{
 		$formEntry = $this->getTabel('tb_cek_tahanan');
 		$formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
 		
-		// $formUpload = $this->getDataTabel('tb_document_upload', ['cek_id', $formEntry['id_cek_tahanan']]);
 		$cek_id = $formEntry['id_cek_tahanan'];
 		$formUpload = $this->getTabel('tb_document_upload');
 		$listUpload = $this->getListKategoriUpload()['cek_tahanan'];
@@ -128,6 +128,35 @@ class reports extends Model{
 		return $result;
 	}
 
+	public function getFormCekKebakaranSatker($satker){
+		$dataEntry = $this->getData('SELECT * FROM tb_cek_kebakaran WHERE (satker_id = ?) AND (date(datetime) = ?) LIMIT 1', [$satker, date('Y-m-d')]);
+		$formEntry = $this->getTabel('tb_cek_kebakaran');
+		$formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
+		
+		$cek_id = $formEntry['id_cek_kebakaran'];
+		$formUpload = $this->getTabel('tb_document_upload');
+		$listUpload = $this->getListKategoriUpload()['cek_kebakaran'];
+		$formListUpload = [];
+		foreach ($listUpload as $key => $value) {
+			$formUpload['id_document_upload']++;
+			$dataUpload = $this->getData('SELECT * FROM tb_document_upload WHERE (cek_id = ?) AND (category_document = ?) LIMIT 1', [$cek_id, $key]);
+			if ($dataUpload['count'] > 0) {
+				array_push($formListUpload, $dataUpload['value'][0]);
+			}
+			else {
+				$dataUpload = $formUpload;
+				$dataUpload['cek_id'] = $cek_id;
+				$dataUpload['category_document'] = $key;
+				array_push($formListUpload, $dataUpload);
+			}
+		}
+
+		$result['form_entry'] = $formEntry;
+		$result['form_list_upload'] = $formListUpload;
+		$result['form_title'] = empty($id) ? 'Input Cek Kebakaran' : 'Edit Cek Kebakaran';
+		return $result;
+	}
+
 	public function getListSatker($params){
 		$page = $params['page'];
 		$cari = '%'.$params['cari'].'%';
@@ -150,6 +179,7 @@ class reports extends Model{
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			unset($value['password']);
 			array_push($contents, $value);
 		}
 		
@@ -161,6 +191,13 @@ class reports extends Model{
 		$result['contents'] = $contents;
 		// $result['query'] = $dataValue['query'];
 		return $result;
+	}
+
+	public function satkerLogin($params){
+		$satker = $params['satker'];
+		$password = FUNC::encryptor($params['password']);
+		$data = $this->getData('SELECT * FROM tb_satker WHERE (id_satker = ?) AND (password = ?) LIMIT 1', [$satker, $password]);
+		return ($data['count'] > 0) ? $data['value'][0] : [];
 	}
 
 }
