@@ -14,6 +14,9 @@ class reports extends Model{
 			'id_cek_tahanan' => $this->createRandomID(10),
 			'id_cek_kebakaran' => $this->createRandomID(10),
 			'id_document_upload' => $this->createDateID(),
+			'jumlah_tahanan' => 0,
+			'surat_aktif' => 0,
+			'surat_expired' => 0,
 			'datetime' => date('Y-m-d H:i:s'),
 		));
 	}
@@ -102,6 +105,7 @@ class reports extends Model{
 		$dataEntry = $this->getData('SELECT * FROM tb_cek_tahanan WHERE (satker_id = ?) AND (date(datetime) = ?) LIMIT 1', [$satker, date('Y-m-d')]);
 		$formEntry = $this->getTabel('tb_cek_tahanan');
 		$formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
+		$formEntry['satker_id'] = $satker;
 		
 		$cek_id = $formEntry['id_cek_tahanan'];
 		$formUpload = $this->getTabel('tb_document_upload');

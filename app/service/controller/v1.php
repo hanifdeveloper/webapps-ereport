@@ -10,14 +10,14 @@ class v1 extends application{
 	public function __construct(){
 		parent::__construct();
 		$this->data['url_path'] = $this->link($this->getProject().$this->getController());
-		// $reports = new \app\ereport\model\reports();
-		// $reports->getTabel('tb_satker');
 	}
 
 	protected function index(){
-		if (isset($_SERVER['HTTP_ACCEPT']) && $_SERVER['HTTP_ACCEPT'] == 'application/json') {
-			$this->showResponse($this->errorMsg, 404);
-		}
+		// if (isset($_SERVER['HTTP_ACCEPT']) && $_SERVER['HTTP_ACCEPT'] == 'application/json') {
+		// 	$this->showResponse($this->errorMsg, 404);
+		// }
+		print_r($_POST);
+		print_r($_FILES);
 	}
 
 	protected function script(){
@@ -27,11 +27,10 @@ class v1 extends application{
 
 	protected function ereport($method = '', $action = ''){
 		$this->checkAuthToken($this->token);
-		$input = $this->postValidate();
-		// $this->showResponse($input);
 		$reports = new \app\ereport\model\reports();
 		switch ($method) {
 			case 'user':
+				$input = $this->postValidate();
 				switch ($action) {
 					case 'login':
 						# code...
@@ -44,6 +43,7 @@ class v1 extends application{
 				break;
 
 			case 'satker':
+				$input = $this->postValidate();
 				switch ($action) {
 					case 'login':
 						$input = $reports->paramsFilter(['satker' => '', 'password' => ''], $input);
@@ -101,9 +101,45 @@ class v1 extends application{
 			case 'tahanan':
 				switch ($action) {
 					case 'form':
+						$input = $this->postValidate();
 						$data = $reports->getFormCekTahananSatker($input['satker']);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
+						break;
+
+					case 'entry':
+						$input = $this->inputValidate();
+						$form = $reports->getDataTabel('tb_cek_tahanan', ['id_cek_tahanan', $input['id_cek_tahanan']]);
+						$data = $reports->paramsFilter($form, $input);
+						$result = $reports->save_update('tb_cek_tahanan', $data);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah disimpan',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
+						break;
+
+					case 'upload':
+						$input = $this->postValidate();
+						// $data = $reports->getFormCekTahananSatker($input['satker']);
+						// $this->succesMsg['data'] = $data;
+						// $this->showResponse($this->succesMsg);
+						// $form = json_decode($input['form'], true);
+						print_r($_POST);
+						print_r($_FILES);
+						// $key = array_keys($_FILES['image']);
+						// print_r($key);
+						
+						
+						// $image = $_FILES['image'];
+						// $result = $this->uploadImage($image, 'IMG');
+						// $this->showResponse($result);
 						break;
 					
 					default:
@@ -115,6 +151,7 @@ class v1 extends application{
 			case 'kebakaran':
 				switch ($action) {
 					case 'form':
+						$input = $this->postValidate();
 						$data = $reports->getFormCekKebakaranSatker($input['satker']);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
@@ -127,8 +164,7 @@ class v1 extends application{
 				break;
 			
 			default:
-				// $this->showResponse($this->errorMsg, $this->errorCode);
-				$this->showResponse($input);
+				$this->showResponse($this->errorMsg, $this->errorCode);
 				break;
 		}
 	}

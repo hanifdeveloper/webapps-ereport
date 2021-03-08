@@ -1,0 +1,27 @@
+version: "3.8"
+services: 
+  app:
+    container_name: "ereport"
+    image: "hanifmuhammad/frameduz-php:7.4-apache"
+    ports: 
+      - 8085:80
+    volumes: 
+      - .:/var/www/html
+    environment: 
+      MYSQL_HOST: "mysql.server"
+      MYSQL_PORT: "3306" #default port mysql
+      MYSQL_USER: "root"
+      MYSQL_PASS: "root"
+      MYSQL_DBNAME: "dbweb_ereport"
+    networks: 
+      - localnetwork
+      - localsite
+
+networks: 
+  localnetwork:
+    name: "localnetwork"
+    driver: "bridge"
+  localsite:
+    name: "localsite"
+    external: true
+

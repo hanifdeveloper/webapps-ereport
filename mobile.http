@@ -39,13 +39,91 @@ Content-Type: application/x-www-form-urlencoded
 # id_satker=N8K8V&nama_satker=Polsek Sebangki&group_satker=2L8J1&password=ereport
 # id_satker=WRMUH&nama_satker=Polsek Ngabang&group_satker=2L8J1&password=ereport
 
-
 ### Form Cek Tahanan
 POST {{baseUrl}}/ereport/tahanan/form
 token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
-satker=""
+satker=54TYD
+
+### Entry Form Cek Tahanan
+POST {{baseUrl}}/ereport/tahanan/entry
+token: {{token}}
+Content-Type: application/json
+
+{
+    "id_cek_tahanan": "HH1CK5HM0O",
+    "satker_id": "54TYD",
+    "jumlah_tahanan": "10",
+    "surat_aktif": "10",
+    "surat_expired": "0",
+    "kamar_mandi": "Air Mengalir",
+    "dinding_tembok": "Baik",
+    "jeruji": "Baik",
+    "material_platfon": "Cor Beton",
+    "jendela_ventilasi": "Baik",
+    "cctv": "Ada (Aktif)",
+    "barang_temuan": "",
+    "hal_menonjol": "",
+    "datetime": "2021-03-08 22:27:07"
+}
+
+### Upload Form Cek Tahanan
+POST {{baseUrl}}/ereport/tahanan/upload
+token: {{token}}
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary7MA4YWxkTrZu0gW
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="id_document_upload"
+
+20210308235956
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="cek_id"
+
+HH1CK5HM0O
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="category_document"
+
+CT01
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="text_caption"
+
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="file_upload"
+
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="latitude"
+
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="longitude"
+
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="datetime"
+
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image[0]"; filename="img_1.jpg"
+Content-Type: image/jpg
+
+< ./people/img_1.jpg
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image[1]"; filename="img_2.jpg"
+Content-Type: image/jpg
+
+< ./people/img_1.jpg
+--WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Form Cek Kebakaran
 POST {{baseUrl}}/ereport/kebakaran/form
@@ -53,6 +131,19 @@ token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 satker=""
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Send Multipart
