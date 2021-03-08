@@ -64,7 +64,7 @@ class Model{
 				header("HTTP/1.1 503");
 		        header("Content-Type:application/json");
 				$this->errorMsg['message']['text'] = $err->getMessage();
-				$this->errorMsg['message']['text'] = $this->databaseConfig[$this->con]['errorMsg'];
+				// $this->errorMsg['message']['text'] = $this->databaseConfig[$this->con]['errorMsg'];
 		        echo json_encode($this->errorMsg);
 				die;
 			}

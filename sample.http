@@ -1,0 +1,35 @@
+@baseUrl = https://ereport.local/api/v1
+@baseUrl = http://localhost:8085/api/v1
+@token = grsosr7ov6mmt84k5m1av95od2
+
+Run Command: cmd+alt+r
+
+### Get Data
+GET {{baseUrl}}
+Accept: application/json
+token: {{token}}
+
+### Send Data
+POST {{baseUrl}}/ereport
+token: {{token}}
+Content-Type: application/x-www-form-urlencoded
+
+id=123&satker=xyz
+
+
+### Send Multipart
+POST {{baseUrl}}/ereport
+token: {{token}}
+Content-Type: multipart/form-data; boundary=WebKitFormBoundary7MA4YWxkTrZu0gW
+
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Type: text/plain
+Content-Disposition: form-data; name="id"
+
+xxx
+--WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="1.png"
+Content-Type: image/png
+
+< ./upload/default/no-user-female.png
+--WebKitFormBoundary7MA4YWxkTrZu0gW--

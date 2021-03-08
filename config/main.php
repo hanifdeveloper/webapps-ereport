@@ -88,13 +88,38 @@ ___________                                .___             ____   _____________
                 'js/font-awesome.com.js',
             ),
         ),
-        'midone' => array(
-            'basePath' => 'midone/', // Path template
+        // 'midone' => array(
+        //     'basePath' => 'midone/', // Path template
+        //     'css' => array(
+        //         'dist/css/app.css',
+        //     ),
+        //     'js' => array(
+        //         'dist/js/app.js',
+        //     ),
+        // ),
+        'appui' => array(
+            'basePath' => 'appui-27/', // Path template
             'css' => array(
-                'dist/css/app.css',
+                'css/bootstrap.min.css',
+                'css/plugins.css',
+                'css/main.css',
+                'css/themes/customs.css',
+                'css/themes.css',
+                'css/chat.css',
+                'plugins/sweetalert/sweetalert.css',
             ),
             'js' => array(
-                'dist/js/app.js',
+                'js/vendor/modernizr-3.3.1.min.js',
+                'js/vendor/jquery-2.2.4.min.js',
+                'js/vendor/bootstrap.min.js',
+                'js/plugins.js',
+                'js/app.js',
+                'plugins/sweetalert/sweetalert.min.js',
+                'plugins/highcharts/highcharts.js',
+                'plugins/highcharts/exporting.js',
+                'plugins/highcharts/export-data.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js',
+                'https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js',
             ),
         ),
     ),
