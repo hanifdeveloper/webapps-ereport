@@ -114,15 +114,15 @@ Content-Disposition: form-data; name="datetime"
 
 
 --WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image[0]"; filename="img_1.jpg"
+Content-Disposition: form-data; name="image_0"; filename="img_1.jpg"
 Content-Type: image/jpg
 
 < ./people/img_1.jpg
 --WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image[1]"; filename="img_2.jpg"
+Content-Disposition: form-data; name="image_1"; filename="img_2.jpg"
 Content-Type: image/jpg
 
-< ./people/img_1.jpg
+< ./people/img_2.jpg
 --WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ### Form Cek Kebakaran
@@ -131,34 +131,3 @@ token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 satker=""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Send Multipart
-POST {{baseUrl}}/ereport
-token: {{token}}
-Content-Type: multipart/form-data; boundary=WebKitFormBoundary7MA4YWxkTrZu0gW
-
---WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Type: text/plain
-Content-Disposition: form-data; name="id"
-
-xxx
---WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="image"; filename="1.png"
-Content-Type: image/png
-
-< ./upload/default/no-user-female.png
---WebKitFormBoundary7MA4YWxkTrZu0gW--

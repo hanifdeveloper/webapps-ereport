@@ -17,6 +17,8 @@ class reports extends Model{
 			'jumlah_tahanan' => 0,
 			'surat_aktif' => 0,
 			'surat_expired' => 0,
+			'latitude' => 0,
+			'longitude' => 0,
 			'datetime' => date('Y-m-d H:i:s'),
 		));
 	}

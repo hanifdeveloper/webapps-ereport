@@ -127,19 +127,29 @@ class v1 extends application{
 
 					case 'upload':
 						$input = $this->postValidate();
-						// $data = $reports->getFormCekTahananSatker($input['satker']);
-						// $this->succesMsg['data'] = $data;
-						// $this->showResponse($this->succesMsg);
-						// $form = json_decode($input['form'], true);
-						print_r($_POST);
-						print_r($_FILES);
-						// $key = array_keys($_FILES['image']);
-						// print_r($key);
-						
-						
-						// $image = $_FILES['image'];
-						// $result = $this->uploadImage($image, 'IMG');
-						// $this->showResponse($result);
+						$form = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
+						$data = $reports->paramsFilter($form, $input);
+						$file_upload = [];
+						foreach ($_FILES as $key => $value) {
+							$upload = $this->uploadImage($value, 'IMG');
+							if ($upload['status'] == 'success') {
+								array_push($file_upload, $upload['UploadFile']);
+							}
+						}
+
+						$data['file_upload'] = implode(',', $file_upload);
+						$result = $reports->save_update('tb_document_upload', $data);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah disimpan',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
 						break;
 					
 					default:
