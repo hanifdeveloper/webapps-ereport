@@ -33,5 +33,4 @@ ini_set('display_errors', 1);
 // Load Composer Engine
 require_once VENDOR . 'autoload.php';
 require_once 'Frameduz.php';
-echo getenv('MYSQL_USER') ?? 'ereportp';
 ?>
