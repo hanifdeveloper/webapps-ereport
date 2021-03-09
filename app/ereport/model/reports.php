@@ -138,6 +138,7 @@ class reports extends Model{
 		$dataEntry = $this->getData('SELECT * FROM tb_cek_kebakaran WHERE (satker_id = ?) AND (date(datetime) = ?) LIMIT 1', [$satker, date('Y-m-d')]);
 		$formEntry = $this->getTabel('tb_cek_kebakaran');
 		$formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
+		$formEntry['satker_id'] = $satker;
 		
 		$cek_id = $formEntry['id_cek_kebakaran'];
 		$formUpload = $this->getTabel('tb_document_upload');

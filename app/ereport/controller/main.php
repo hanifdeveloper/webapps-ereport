@@ -14,7 +14,7 @@ class main extends application{
 	public function index(){
 		// $this->redirect('dashboard');
 		// $this->getSessionLogin();
-		$this->showView('login', $this->data, 'appui');
+		// $this->showView('login', $this->data, 'appui');
 	}
 
 }

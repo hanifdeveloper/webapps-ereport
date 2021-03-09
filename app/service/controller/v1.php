@@ -13,11 +13,9 @@ class v1 extends application{
 	}
 
 	protected function index(){
-		// if (isset($_SERVER['HTTP_ACCEPT']) && $_SERVER['HTTP_ACCEPT'] == 'application/json') {
-		// 	$this->showResponse($this->errorMsg, 404);
-		// }
-		print_r($_POST);
-		print_r($_FILES);
+		if (isset($_SERVER['HTTP_ACCEPT']) && $_SERVER['HTTP_ACCEPT'] == 'application/json') {
+			$this->showResponse($this->errorMsg, 404);
+		}
 	}
 
 	protected function script(){
@@ -111,6 +109,7 @@ class v1 extends application{
 						$input = $this->inputValidate();
 						$form = $reports->getDataTabel('tb_cek_tahanan', ['id_cek_tahanan', $input['id_cek_tahanan']]);
 						$data = $reports->paramsFilter($form, $input);
+						$data['datetime'] = date('Y-m-d H:i:s');
 						$result = $reports->save_update('tb_cek_tahanan', $data);
 						$this->errorMsg = ($result['success']) ? 
 											array('status' => 'success', 'message' => array(
@@ -165,6 +164,52 @@ class v1 extends application{
 						$data = $reports->getFormCekKebakaranSatker($input['satker']);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
+						break;
+
+					case 'entry':
+						$input = $this->inputValidate();
+						$form = $reports->getDataTabel('tb_cek_kebakaran', ['id_cek_kebakaran', $input['id_cek_kebakaran']]);
+						$data = $reports->paramsFilter($form, $input);
+						$data['datetime'] = date('Y-m-d H:i:s');
+						$result = $reports->save_update('tb_cek_kebakaran', $data);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah disimpan',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
+						break;
+
+					case 'upload':
+						$input = $this->postValidate();
+						$form = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
+						$data = $reports->paramsFilter($form, $input);
+						$file_upload = [];
+						foreach ($_FILES as $key => $value) {
+							$upload = $this->uploadImage($value, 'IMG');
+							if ($upload['status'] == 'success') {
+								array_push($file_upload, $upload['UploadFile']);
+							}
+						}
+
+						$data['file_upload'] = implode(',', $file_upload);
+						$result = $reports->save_update('tb_document_upload', $data);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah disimpan',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
 						break;
 					
 					default:
