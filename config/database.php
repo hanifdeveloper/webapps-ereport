@@ -15,11 +15,11 @@ return array(
      */
     'ereport' => array(
         'driver' => 'mysql',
-        'host' => getenv('MYSQL_HOST') ?? 'e-reportpoldakalbar.id',
+        'host' => getenv('MYSQL_HOST') ?? 'localhost',
         'port' => getenv('MYSQL_PORT') ?? '3306',
-        'user' => getenv('MYSQL_USER') ?? 'ereport',
-        'password' => getenv('MYSQL_PASS') ?? 'Q5Cce#2Au51#rK',
-        'dbname' => getenv('MYSQL_DBNAME') ?? 'ereport_database',
+        'user' => getenv('MYSQL_USER') ?? 'ereportp',
+        'password' => getenv('MYSQL_PASS') ?? 'a!ZMVpaXX:;j',
+        'dbname' => getenv('MYSQL_DBNAME') ?? 'ereportp_database',
         'charset' => 'utf8',
         'collate' => 'utf8_general_ci',
         'persistent' => false,
