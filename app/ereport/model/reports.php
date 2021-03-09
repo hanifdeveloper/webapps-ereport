@@ -195,6 +195,7 @@ class reports extends Model{
 		$result['page'] = $page;
 		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
 		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
 		$result['contents'] = $contents;
 		// $result['query'] = $dataValue['query'];
 		return $result;
