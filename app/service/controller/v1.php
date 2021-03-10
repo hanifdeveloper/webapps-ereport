@@ -191,7 +191,7 @@ class v1 extends application{
 						 * maka kita simpan data cek kebakaran sebelum upload file
 						 */
 						$input = $this->postValidate();
-						$formEntry = $reports->getDataTabel('tb_cek_kebakaran', ['id_cek_kebakaran', $input['cek_id']]);
+						$formEntry = $reports->getTabel('tb_cek_kebakaran');
 						$formUpload = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
 						$dataEntry = $reports->paramsFilter($formEntry, $input);
 						$dataUpload = $reports->paramsFilter($formUpload, $input);
