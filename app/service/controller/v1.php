@@ -186,9 +186,15 @@ class v1 extends application{
 						break;
 
 					case 'upload':
+						/**
+						 * Dikarenakan upload file terlebih dahulu, 
+						 * maka kita simpan data cek kebakaran sebelum upload file
+						 */
 						$input = $this->postValidate();
-						$form = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
-						$data = $reports->paramsFilter($form, $input);
+						$formEntry = $reports->getDataTabel('tb_cek_kebakaran', ['id_cek_kebakaran', $input['cek_id']]);
+						$formUpload = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
+						$dataEntry = $reports->paramsFilter($formEntry, $input);
+						$dataUpload = $reports->paramsFilter($formUpload, $input);
 						$file_upload = [];
 						foreach ($_FILES as $key => $value) {
 							$upload = $this->uploadImage($value, 'IMG');
@@ -197,8 +203,9 @@ class v1 extends application{
 							}
 						}
 
-						$data['file_upload'] = implode(',', $file_upload);
-						$result = $reports->save_update('tb_document_upload', $data);
+						$dataUpload['file_upload'] = implode(',', $file_upload);
+						$result = $reports->save_update('tb_cek_kebakaran', $dataEntry);
+						$result = $reports->save_update('tb_document_upload', $dataUpload);
 						$this->errorMsg = ($result['success']) ? 
 											array('status' => 'success', 'message' => array(
 												'title' => 'Sukses',
