@@ -191,9 +191,12 @@ class v1 extends application{
 						 * maka kita simpan data cek kebakaran sebelum upload file
 						 */
 						$input = $this->postValidate();
-						$formEntry = $reports->getTabel('tb_cek_kebakaran');
-						$formUpload = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
+						$formEntry = $reports->getDataTabel('tb_cek_kebakaran', ['id_cek_kebakaran', $input['cek_id']]);
 						$dataEntry = $reports->paramsFilter($formEntry, $input);
+						$dataEntry['id_cek_kebakaran'] = $input['cek_id'];
+						$result = $reports->save_update('tb_cek_kebakaran', $dataEntry);
+
+						$formUpload = $reports->getDataTabel('tb_document_upload', ['id_document_upload', $input['id_document_upload']]);
 						$dataUpload = $reports->paramsFilter($formUpload, $input);
 						$file_upload = [];
 						foreach ($_FILES as $key => $value) {
@@ -204,7 +207,6 @@ class v1 extends application{
 						}
 
 						$dataUpload['file_upload'] = implode(',', $file_upload);
-						$result = $reports->save_update('tb_cek_kebakaran', $dataEntry);
 						$result = $reports->save_update('tb_document_upload', $dataUpload);
 						$this->errorMsg = ($result['success']) ? 
 											array('status' => 'success', 'message' => array(
