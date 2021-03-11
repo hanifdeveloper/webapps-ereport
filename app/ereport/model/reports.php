@@ -59,7 +59,7 @@ class reports extends Model{
 				'CT04' => 'Foto Pengecekan Jendela/Ventilasi',
         		'CT05' => 'Foto Pengecekan Tembok/Dinding',
 				'CT06' => 'Foto Kondisi CCTV',
-				'CT07' => 'Foto Pengecekan Platfon',
+				'CT07' => 'Foto Pengecekan Plafon',
 			],
 			'cek_kebakaran' => [
 				'CK01' => 'Foto Pengecekan Instalasi Listrik',
