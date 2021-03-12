@@ -9,7 +9,6 @@ class main extends application{
 	public function __construct(){
 		parent::__construct();
 		$this->reports = new \app\ereport\model\reports();
-		$this->modul = $this->link($this->getProject());
 		$this->data['api_path'] = $this->link('api/v1');
 		$this->data['url_path'] = $this->link($this->getProject().$this->getController());
 		// $userSession = $this->getSession('SESSION_LOGIN');
@@ -21,7 +20,6 @@ class main extends application{
 
 	public function index(){
 		$this->data['page_title'] = 'Dashboard';
-		$this->data['breadcrumb'] = '<li>Polda Kalbar</li><li><a href="'.$this->modul.'">Dashboard</a></li>';
 		$this->showView('index', $this->data, 'appui');
 	}
 
