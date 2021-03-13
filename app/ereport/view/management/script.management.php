@@ -1,5 +1,14 @@
 const satker = new frameduz("#satker");
 const dialog = satker.createDialog("#modal-fade");
+const showMessage = function(status, message) {
+    $.bootstrapGrowl("<h4><strong>"+message.title+"</strong></h4> <p>"+message.text+"</p>", {
+        type: status,
+        delay: 3000,
+        allow_dismiss: true,
+        offset: {from: "top", amount: 20}
+    });
+}
+
 satker.showTable = function(){
     satker.loadTable({
         url: "/ereport/satker/list",
@@ -19,23 +28,45 @@ satker.showTable = function(){
 satker.showForm = function(id){
     const form_content = satker.form.clone();
     form_content.attr("id", "form-input");
+    // Save Data
     form_content.on("submit", function(event){
         const progress = satker.createProgress(dialog.content);
         setTimeout(function(){
-            console.log($(this).serialize());
-            progress.remove();
-        }, 1000);
+            app.sendData({
+                url: "/ereport/satker/save",
+                data: form_content.serialize(),
+                token: "<?= $this->token; ?>",
+                onSuccess: function(response){
+                    console.log(response);
+                    progress.remove();
+                    dialog.modal("hide");
+                    satker.showTable();
+                    showMessage("info", response.message);
+                },
+                onError: function(error){
+                    console.log(error);
+                    progress.remove();
+                    showMessage("danger", response.message);
+                }
+            });
+        }, 500);
     });
     
+    // Load Form
     setTimeout(function(){
         app.sendData({
             url: "/ereport/satker/form",
             data: {id},
             token: "<?= $this->token; ?>",
             onSuccess: function(response){
-                console.log(response);
+                // console.log(response);
                 const data = response.data;
                 const form = data.form;
+                satker.form.createObject(form_content, {
+                    id_satker: app.createForm.inputKey("id_satker", form.id_satker),
+                    nama_satker: app.createForm.inputText("nama_satker", form.nama_satker).attr("required", true),
+                    password: app.createForm.inputText("password", form.password).attr("required", true),
+                });
 
                 dialog.title.html(data.form_title);
                 dialog.body.html(form_content);

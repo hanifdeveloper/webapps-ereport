@@ -399,6 +399,10 @@ frameduz = function(id) {
     }
 
     this.form = modul.find(".fzform-content").clone().show();
+    this.form.createObject = function(form_content, object) {
+        $.each(object, (key, val) => form_content.find("span[data-form-object='"+key+"']").replaceWith(val));
+    }
+
     this.loadTable = function(params) {
         table.loader().show();
         table.empty().hide();

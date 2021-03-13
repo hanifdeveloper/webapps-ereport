@@ -24,8 +24,8 @@
                                 Content..
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-effect-ripple btn-primary">Save</button>
                                 <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-effect-ripple btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                 <button onclick="javascript:satker.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
                             </div>
                         </div>
-                        <form class="form-table form-horizontal form-bordered" onsubmit="return satker.showTable();">
+                        <form class="form-table form-horizontal form-bordered" onsubmit="return satker.showTable();" autocomplete="off">
                             <div class="form-group form-actions">
                                 <div class="col-sm-4">
                                     <div class="input-group">
@@ -97,7 +97,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="fztable-paging">
+                            <div class="fztable-paging" style="border-top:2px solid #ccc;">
                                 <ul class="pagination pagination-sm">
                                     <li><a href="javascript:void(0)" page-number="">{page}</a></li>
                                 </ul>
@@ -105,14 +105,17 @@
                         </div>
                         <form action="page_forms_components.html" method="post" class="fzform-content form-bordered" onsubmit="return false;" autocomplete="off">
                             <div class="form-group">
-                                <label for="example-nf-email">Email</label>
-                                <input type="email" id="example-nf-email" name="example-nf-email" class="form-control" required>
-                                <span class="help-block">Please enter your email</span>
+                                <label for="nama_satker">Nama Satker</label>
+                                <span data-form-object="id_satker"></span>
+                                <span data-form-object="nama_satker"></span>
                             </div>
                             <div class="form-group">
-                                <!-- <label for="example-nf-password">Password</label> -->
-                                <!-- <input type="password" id="example-nf-password" name="example-nf-password" class="form-control"> -->
-                                <!-- <span class="help-block">Please enter your password</span> -->
+                                <label for="group_satker">Group Satker</label>
+                                <span data-form-object="group_satker"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <span data-form-object="password"></span>
                             </div>
                         </form>
                     </div>
