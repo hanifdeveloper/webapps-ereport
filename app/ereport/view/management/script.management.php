@@ -13,8 +13,42 @@ satker.showTable = function(){
     satker.loadTable({
         url: "/ereport/satker/list",
         data: $(".form-table").serialize(),
-        onShow: function(){
-            //
+        onShow: function(content){
+            content.find("[data-toggle='tooltip']").tooltip();
+            content.find(".btn-edit").each(function(index, element){
+                $(element).on("click", function(e){
+                    e.preventDefault();
+                    satker.showForm(this.id);
+                });
+            });
+
+            content.find(".btn-delete").each(function(index, element){
+                $(element).on("click", function(e){
+                    e.preventDefault();
+                    const params = {id: this.id, message: this.getAttribute("data-message")};
+                    if(confirm(params.message)){
+                        const progress = satker.createProgress(satker.table.content);
+                        setTimeout(function(){
+                            app.sendData({
+                                url: "/ereport/satker/delete",
+                                data: params,
+                                token: "<?= $this->token; ?>",
+                                onSuccess: function(response){
+                                    // console.log(response);
+                                    progress.remove();
+                                    satker.showTable();
+                                    showMessage("info", response.message);
+                                },
+                                onError: function(error){
+                                    // console.log(error);
+                                    progress.remove();
+                                    showMessage("danger", response.message);
+                                }
+                            });
+                        }, 1000);
+                    }
+                });
+            });
         },
         onPage: function(page_number){
             $(".form-table").find("#page").val(page_number);
@@ -59,15 +93,17 @@ satker.showForm = function(id){
             data: {id},
             token: "<?= $this->token; ?>",
             onSuccess: function(response){
-                // console.log(response);
+                console.log(response);
                 const data = response.data;
                 const form = data.form;
                 satker.form.createObject(form_content, {
                     id_satker: app.createForm.inputKey("id_satker", form.id_satker),
                     nama_satker: app.createForm.inputText("nama_satker", form.nama_satker).attr("required", true),
+                    group_satker: app.createForm.selectOption("group_satker", data.pilihan_group, form.group_satker).addClass("select-select2"),
                     password: app.createForm.inputText("password", form.password).attr("required", true),
                 });
 
+                form_content.find(".select-select2").css({width: "100%"}).select2();
                 dialog.title.html(data.form_title);
                 dialog.body.html(form_content);
                 dialog.submit.attr("form", "form-input");
@@ -82,12 +118,12 @@ satker.showForm = function(id){
 }
 
 satker.showTable();
-satker.modul.find("#cari").on("input", function(e){
+satker.modul.find(".filter-table").on("change", function(e){
     e.preventDefault();
     $(".form-table").find("#page").val(1);
+    satker.showTable();
 });
 satker.modul.find(".btn-form").on("click", function(e){
     e.preventDefault();
     satker.showForm(this.id);
-    // console.log(satker.form);
 });

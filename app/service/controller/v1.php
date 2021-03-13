@@ -89,6 +89,21 @@ class v1 extends application{
 
 						$this->showResponse($this->errorMsg);
 						break;
+
+					case 'delete':
+						$result = $reports->delete('tb_satker', ['id_satker' => $input['id']]);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah dihapus',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
+						break;
 					
 					default:
 						$this->showResponse($this->errorMsg, $this->errorCode);

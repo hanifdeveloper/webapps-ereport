@@ -18,6 +18,7 @@ class management extends main{
 	public function satker(){
 		$this->data['page_title'] = 'Management Satker';
 		$this->data['breadcrumb'] = '<li>Management</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Satker</a></li>';
+		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
 		$this->showView('satker', $this->data, 'appui');
 	}
 

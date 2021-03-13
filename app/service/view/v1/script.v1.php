@@ -148,7 +148,7 @@ app = {
             var select = $("<select>").attr({id: id, name: id, class: "form-control custom-select", style: "cursor: pointer;"});
             var value = value.split(",");
             $.each(data, function(key, val){
-                var option = $("<option>").attr({value: val, selected: ($.inArray(val, value) != -1)}).text(val)
+                var option = $("<option>").attr({value: key, selected: ($.inArray(key, value) != -1)}).text(val.text)
                 select.append(option);
             });
             group.append(select);
@@ -336,6 +336,7 @@ frameduz = function(id) {
                 table.contentTbody.append(row);
             }
             table.content.show();
+            if(typeof params.onShow === "function") params.onShow(table.content);
 
             // Create Paging
             table.paging.html("");
@@ -394,7 +395,6 @@ frameduz = function(id) {
         }
         else {
             table.empty().show();
-            if(typeof params.onShow === "function") params.onShow(table.content);
         }
     }
 
@@ -462,6 +462,7 @@ frameduz = function(id) {
     }
 
     this.modul = modul;
+    this.table = table;
 }
 
 

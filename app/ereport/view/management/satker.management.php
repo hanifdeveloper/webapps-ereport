@@ -61,20 +61,23 @@
                                 <button onclick="javascript:satker.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
                             </div>
                         </div>
-                        <form class="form-table form-horizontal form-bordered" onsubmit="return satker.showTable();" autocomplete="off">
+                        <form class="form-table form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
+                            <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
+                            <?= comp\BOOTSTRAP::inputKey('size', '5') ?>
                             <div class="form-group form-actions">
                                 <div class="col-sm-4">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-effect-ripples btn-primary"><i class="fa fa-search"></i></button>
+                                            <span class="btn btn-effect-ripples btn-primary"><i class="fa fa-search"></i></span>
                                         </span>
-                                        <?= comp\BOOTSTRAP::inputText('cari', 'text', '', 'class="form-control" placeholder="Cari satker ..."') ?>
-                                        <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
-                                        <?= comp\BOOTSTRAP::inputKey('size', '5') ?>
+                                        <?= comp\BOOTSTRAP::inputText('cari', 'text', '', 'class="form-control filter-table" placeholder="Cari satker ..."') ?>
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <?= comp\BOOTSTRAP::inputSelect('group', $pilihan_group, '', 'class="form-control filter-table select-select2" placeholder="Pilih Group ..."') ?>
+                                </div>
                                 <div class="col-sm-3">
-                                <button type="button" id="" class="btn btn-effect-ripple btn-primary btn-form"><i class="fa fa-plus"></i> Tambah Data</button>
+                                    <button type="button" id="" class="btn btn-effect-ripple btn-primary btn-form"><i class="fa fa-plus"></i> Tambah Data</button>
                                 </div>
                             </div>
                         </form>
@@ -92,7 +95,10 @@
                                             <td>{number}</td>
                                             <td>{nama_satker}</td>
                                             <td>{nama_group}</td>
-                                            <td>{action}</td>
+                                            <td>
+                                                <button data-toggle="tooltip" title="Edit Data" id="{id_satker}" class="btn btn-effect-ripple btn-sm btn-success btn-edit"><i class="fa fa-pencil"></i></button>
+                                                <button data-toggle="tooltip" title="Delete Data" id="{id_satker}" class="btn btn-effect-ripple btn-sm btn-danger btn-delete" data-message="Yakin data satker {nama_satker} akan dihapus ?"><i class="fa fa-times"></i></button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

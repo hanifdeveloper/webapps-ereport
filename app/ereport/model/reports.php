@@ -81,11 +81,22 @@ class reports extends Model{
 		return $result;
 	}
 
+	public function getPilihanGroupSatker(){
+		$result = [];
+		$data = $this->getData('SELECT * FROM tb_satker WHERE (group_satker = ?) ORDER BY id_satker', ['']);
+		foreach ($data['value'] as $key => $value) {
+			$result[$value['id_satker']] = ['text' => $value['nama_satker']];
+		}
+
+		return $result;
+	}
+
 	public function getFormSatker($id = ''){
 		$form = $this->getDataTabel('tb_satker', ['id_satker', $id]);
 		$form['password'] = !empty($form['password']) ? FUNC::decryptor($form['password']) : 'ereport';
 		$result['form'] = $form;
 		$result['form_title'] = empty($id) ? 'Input Satker' : 'Edit Satker';
+		$result['pilihan_group'] = ['' => ['text' => '-- Group Satker --']] + $this->getPilihanGroupSatker();
 		return $result;
 	}
 
