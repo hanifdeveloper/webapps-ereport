@@ -12,8 +12,42 @@ satker.showTable = function(){
             $(".form-table").submit();
         }
     });
-
+    console.clear();
     return false;
+}
+
+satker.showForm = function(id){
+    const form_content = satker.form.clone();
+    form_content.attr("id", "form-input");
+    form_content.on("submit", function(event){
+        const progress = satker.createProgress(dialog.content);
+        setTimeout(function(){
+            console.log($(this).serialize());
+            progress.remove();
+        }, 1000);
+    });
+    
+    setTimeout(function(){
+        app.sendData({
+            url: "/ereport/satker/form",
+            data: {id},
+            token: "<?= $this->token; ?>",
+            onSuccess: function(response){
+                console.log(response);
+                const data = response.data;
+                const form = data.form;
+
+                dialog.title.html(data.form_title);
+                dialog.body.html(form_content);
+                dialog.submit.attr("form", "form-input");
+                dialog.modal("show");
+                
+            },
+            onError: function(error){
+                console.log(error);
+            }
+        });
+    }, 500);
 }
 
 satker.showTable();
@@ -23,11 +57,6 @@ satker.modul.find("#cari").on("input", function(e){
 });
 satker.modul.find(".btn-form").on("click", function(e){
     e.preventDefault();
-    dialog.title.html("Input Satker");
-    dialog.body.html("Hello World");
-    dialog.action.off();
-    dialog.action.on("click", function(e){
-        console.log("hello");
-    });
-    dialog.modal("show");
+    satker.showForm(this.id);
+    // console.log(satker.form);
 });

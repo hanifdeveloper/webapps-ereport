@@ -24,7 +24,7 @@
                                 Content..
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-effect-ripple btn-primary">Save</button>
+                                <button type="submit" class="btn btn-effect-ripple btn-primary">Save</button>
                                 <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -103,6 +103,18 @@
                                 </ul>
                             </div>
                         </div>
+                        <form action="page_forms_components.html" method="post" class="fzform-content form-bordered" onsubmit="return false;" autocomplete="off">
+                            <div class="form-group">
+                                <label for="example-nf-email">Email</label>
+                                <input type="email" id="example-nf-email" name="example-nf-email" class="form-control" required>
+                                <span class="help-block">Please enter your email</span>
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="example-nf-password">Password</label> -->
+                                <!-- <input type="password" id="example-nf-password" name="example-nf-password" class="form-control"> -->
+                                <!-- <span class="help-block">Please enter your password</span> -->
+                            </div>
+                        </form>
                     </div>
                     <!-- END Get Started Block -->
                 </div>

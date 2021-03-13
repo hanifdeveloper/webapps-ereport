@@ -398,6 +398,7 @@ frameduz = function(id) {
         }
     }
 
+    this.form = modul.find(".fzform-content").clone().show();
     this.loadTable = function(params) {
         table.loader().show();
         table.empty().hide();
@@ -448,10 +449,11 @@ frameduz = function(id) {
 
     this.createDialog = function(id) {
         const modal = $(id);
+        modal.content = modal.find(".modal-content");
         modal.title = modal.find(".modal-title");
         modal.body = modal.find(".modal-body");
         modal.footer = modal.find(".modal-footer");
-        modal.action = modal.footer.find("button.btn-primary");
+        modal.submit = modal.footer.find("button[type='submit']");
         return modal;
     }
 

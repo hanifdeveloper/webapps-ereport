@@ -108,8 +108,15 @@
             -webkit-animation-delay: -0.0833s;
         }
 
+        /* Frameduz Form Content */
+        .fzform-content {
+            display: none;
+            position: relative;
+        }
+
         /* Frameduz Table Content */
         .fztable-content {
+            display: none;
             position: relative;
         }
         
