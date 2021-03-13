@@ -12,6 +12,26 @@
                 <?php $this->getView('ereport', 'main', 'header', ''); ?>
                 <!-- END Header -->
 
+                <!-- Modal -->
+                <div id="modal-fade" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title"><strong>Modal</strong></h3>
+                            </div>
+                            <div class="modal-body">
+                                Content..
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-effect-ripple btn-primary">Save</button>
+                                <button type="button" class="btn btn-effect-ripple btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Modal -->
+
                 <!-- Page content --> 
                 <div id="page-content">
                     <!-- Blank Header -->
@@ -36,17 +56,21 @@
                     <!-- Get Started Block -->
                     <div id="satker" class="block full">
                         <div class="block-title">
-                            <h2>Total Satker : <span class="total-data">0</span> Satker</h3>
+                            <h2>Total Satker : <span class="total-data">0</span> Data</h3>
+                            <div class="block-options pull-left">
+                                <button onclick="javascript:satker.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                            </div>
                         </div>
-                        <form class="form-horizontal form-bordered" onsubmit="return false;">
+                        <form class="form-table form-horizontal form-bordered" onsubmit="return satker.showTable();">
                             <div class="form-group form-actions">
                                 <div class="col-sm-4">
                                     <div class="input-group">
                                         <span class="input-group-btn">
-                                            <button type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                                            <button type="submit" class="btn btn-effect-ripples btn-primary"><i class="fa fa-search"></i></button>
                                         </span>
                                         <?= comp\BOOTSTRAP::inputText('cari', 'text', '', 'class="form-control" placeholder="Cari satker ..."') ?>
-                                        <!-- <input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Username"> -->
+                                        <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
+                                        <?= comp\BOOTSTRAP::inputKey('size', '5') ?>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -77,16 +101,6 @@
                                 <ul class="pagination pagination-sm">
                                     <li><a href="javascript:void(0)" page-number="">{page}</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="fztable-loader">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div class="bounce3"></div>
-                        </div>
-                        <div class="fztable-empty">
-                            <div class="alert alert-danger alert-dismissable">
-                                <p><strong>Data tidak ditemukan !</strong></p>
                             </div>
                         </div>
                     </div>

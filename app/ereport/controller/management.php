@@ -24,7 +24,7 @@ class management extends main{
 	public function user(){
 		$this->data['page_title'] = 'Management User';
 		$this->data['breadcrumb'] = '<li>Management</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">User</a></li>';
-		$this->showView('satker', $this->data, 'appui');
+		$this->showView('user', $this->data, 'appui');
 	}
 
 }
