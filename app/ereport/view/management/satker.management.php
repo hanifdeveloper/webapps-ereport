@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                <button type="submit" class="btn btn-effect-ripple btn-primary"><i class="fa fa-plus"></i> Tambah Data</button>
+                                <button type="button" id="" class="btn btn-effect-ripple btn-primary btn-form"><i class="fa fa-plus"></i> Tambah Data</button>
                                 </div>
                             </div>
                         </form>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="fztable-paging">
                                 <ul class="pagination pagination-sm">
-                                    <li><a href="javascript:void(0)">{page}</a></li>
+                                    <li><a href="javascript:void(0)" page-number="">{page}</a></li>
                                 </ul>
                             </div>
                         </div>
