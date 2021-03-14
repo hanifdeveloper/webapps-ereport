@@ -15,7 +15,7 @@
             <ul class="sidebar-menu sidebar-nav">
                 <li><a href="<?= $this->link() ?>"><i class="gi gi-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Dashboard</span></a></li>
                 <li>
-                    <a href="<?= $this->link('laporan') ?>" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-file_export sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Laporan</span></a>
+                    <a href="<?= $this->link('laporan') ?>" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-notes_2 sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Daily Report</span></a>
                     <ul>
                         <li><a href="<?= $this->link('laporan/tahanan') ?>">Cek Tahanan</a></li>
                         <li><a href="<?= $this->link('laporan/kebakaran') ?>">Cegah Kebakaran</a></li>

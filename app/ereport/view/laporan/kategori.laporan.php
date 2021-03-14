@@ -42,12 +42,12 @@
                         <div class="block-title">
                             <h2>Total Laporan : <span class="total-data">0</span> Data</h3>
                             <div class="block-options pull-left">
-                                <!-- <button onclick="javascript:tahanan.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button> -->
+                                <button onclick="javascript:laporan.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
                             </div>
                         </div>
                         <form class="form-table form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
                             <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
-                            <?= comp\BOOTSTRAP::inputKey('size', '5') ?>
+                            <?= comp\BOOTSTRAP::inputKey('size', '10') ?>
                             <?= comp\BOOTSTRAP::inputKey('group', '') ?>
                             <?= comp\BOOTSTRAP::inputKey('kategori', $kategori) ?>
                             <div class="form-group form-actions">
@@ -71,13 +71,13 @@
                         </form>
                         <div class="fztable-content">
                             <div class="table-responsive">
-                                <table class="table">
+                                <table class="table table-hover">
                                     <thead>
                                         <th>#</th>
                                         <th>Nama Satker</th>
                                         <th>Group</th>
                                         <th>Last Update</th>
-                                        <th>Action</th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -92,7 +92,7 @@
                                             <td>{nama_group}</td>
                                             <td>{tanggal_laporan}</td>
                                             <td>
-                                                <a href="<?= $this->modul.'/'.$kategori.'/' ?>{id_laporan}" target="_blank" data-toggle="tooltip" title="Detail Laporan" class="btn btn-effect-ripple btn-sm btn-info">Detail</a>
+                                                <a href="<?= $this->modul.'/'.$kategori.'/' ?>{id_laporan}" target="_blank" data-toggle="tooltip" title="Detail Laporan" id="{id_laporan}" class="btn btn-effect-ripple btn-sm btn-info btn-detail">Detail</a>
                                                 <button data-toggle="tooltip" title="Delete Data" id="{id_laporan}" class="btn btn-effect-ripple btn-sm btn-danger btn-delete" data-message="Yakin data laporan tahanan {nama_satker} akan dihapus ?"><i class="fa fa-times"></i></button>
                                             </td>
                                         </tr>

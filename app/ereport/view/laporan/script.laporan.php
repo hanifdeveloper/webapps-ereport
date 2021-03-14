@@ -15,8 +15,15 @@ laporan.showTable = function(){
         data: $(".form-table").serialize(),
         onShow: function(content){
             content.find("[data-toggle='tooltip']").tooltip();
+
             content.find(".hal_menonjol").each(function(index, element){
                 if ($(element).find("p").html() == "") {
+                    element.remove();
+                }
+            });
+
+            content.find(".btn-detail").each(function(index, element){
+                if (this.id == "") {
                     element.remove();
                 }
             });

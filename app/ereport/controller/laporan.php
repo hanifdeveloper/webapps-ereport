@@ -16,7 +16,7 @@ class laporan extends main{
 	}
 
 	public function tahanan($detail){
-		$this->data['page_title'] = 'Laporan Cek Tahanan';
+		$this->data['page_title'] = 'Laporan Harian Cek Tahanan';
 		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cek Tahanan</a></li>';
 
 		if ($detail) {
@@ -35,7 +35,7 @@ class laporan extends main{
 	}
 
 	public function kebakaran($detail){
-		$this->data['page_title'] = 'Laporan Cegah Kebakaran';
+		$this->data['page_title'] = 'Laporan Harian Cegah Kebakaran';
 		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cegah Kebakaran</a></li>';
 
 		if ($detail) {

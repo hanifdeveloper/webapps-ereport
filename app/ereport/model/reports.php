@@ -222,13 +222,19 @@ class reports extends Model{
 	public function getListLaporanTahanan($params){
 		$page = $params['page'];
 		$cari = '%'.$params['cari'].'%';
-		$tanggal = '%'.$params['tanggal'].'%';
 		$group = '%'.$params['group'].'%';
-		$query = 'FROM tb_cek_tahanan tahanan
-				JOIN tb_satker satker ON (tahanan.satker_id=satker.id_satker)
-				WHERE (satker.nama_satker LIKE ?) AND (satker.group_satker LIKE ?)';
-		$q_value = 'SELECT tahanan.*, satker.nama_satker, satker.group_satker '.$query.' ORDER BY group_satker, satker_id';
-		$q_count = 'SELECT COUNT(*) AS counts '.$query;
+		$tanggal = $params['tanggal'];
+		$query = [
+			'(SELECT tahanan.id_cek_tahanan FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS id_laporan',
+			'(SELECT tahanan.hal_menonjol FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS hal_menonjol',
+			'(SELECT tahanan.datetime FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS datetime'
+		];
+		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
+		$q_value = 'SELECT 
+				satker.id_satker, 
+				satker.nama_satker, 
+				satker.group_satker, '.implode(',', $query).' FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
+		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];
 		$size = $params['size'];
 		$cursor = ($page - 1) * $size;
@@ -243,9 +249,10 @@ class reports extends Model{
 
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
-			$value['id_laporan'] = $value['id_cek_tahanan'];
+			// Check Null Value
+			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
-			$value['tanggal_laporan'] = FUNC::tanggal($value['datetime'], 'long_date_time');
+			$value['tanggal_laporan'] = !empty($value['datetime']) ? FUNC::tanggal($value['datetime'], 'long_date_time') : '-';
 			unset($value['password']);
 			array_push($contents, $value);
 		}
@@ -264,13 +271,19 @@ class reports extends Model{
 	public function getListLaporanKebakaran($params){
 		$page = $params['page'];
 		$cari = '%'.$params['cari'].'%';
-		$tanggal = '%'.$params['tanggal'].'%';
 		$group = '%'.$params['group'].'%';
-		$query = 'FROM tb_cek_kebakaran kebakaran
-				JOIN tb_satker satker ON (kebakaran.satker_id=satker.id_satker)
-				WHERE (satker.nama_satker LIKE ?) AND (satker.group_satker LIKE ?)';
-		$q_value = 'SELECT kebakaran.*, satker.nama_satker, satker.group_satker '.$query.' ORDER BY group_satker, satker_id';
-		$q_count = 'SELECT COUNT(*) AS counts '.$query;
+		$tanggal = $params['tanggal'];
+		$query = [
+			'(SELECT kebakaran.id_cek_kebakaran FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) = "'.$tanggal.'")) AS id_laporan',
+			'(SELECT kebakaran.hal_menonjol FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) = "'.$tanggal.'")) AS hal_menonjol',
+			'(SELECT kebakaran.datetime FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) = "'.$tanggal.'")) AS datetime'
+		];
+		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
+		$q_value = 'SELECT 
+				satker.id_satker, 
+				satker.nama_satker, 
+				satker.group_satker, '.implode(',', $query).' FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
+		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];
 		$size = $params['size'];
 		$cursor = ($page - 1) * $size;
@@ -285,9 +298,11 @@ class reports extends Model{
 
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
-			$value['id_laporan'] = $value['id_cek_kebakaran'];
+			// $value['id_laporan'] = $value['id_cek_kebakaran'];
+			// Check Null Value
+			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
-			$value['tanggal_laporan'] = FUNC::tanggal($value['datetime'], 'long_date_time');
+			$value['tanggal_laporan'] = !empty($value['datetime']) ? FUNC::tanggal($value['datetime'], 'long_date_time') : '-';
 			unset($value['password']);
 			array_push($contents, $value);
 		}

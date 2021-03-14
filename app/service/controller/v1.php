@@ -244,16 +244,15 @@ class v1 extends application{
 
 			case 'laporan':
 				$input = $this->postValidate();
+				$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'group' => '', 'tanggal' => ''], $input);
 				switch ($action) {
 					case 'tahanan':
-						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'tanggal' => '', 'group' => ''], $input);
 						$data = $reports->getListLaporanTahanan($input);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
 						break;
 
 					case 'kebakaran':
-						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'tanggal' => '', 'group' => ''], $input);
 						$data = $reports->getListLaporanKebakaran($input);
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
