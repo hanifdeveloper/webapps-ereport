@@ -16,13 +16,15 @@ class laporan extends main{
 	}
 
 	public function tahanan($detail){
+		$this->data['page_title'] = 'Laporan Cek Tahanan';
+		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cek Tahanan</a></li>';
+
 		if ($detail) {
-			echo 'Detail: '.$detail;
+			$this->data['data_laporan'] = $this->reports->getDetailCekTahananSatker($detail);
+			$this->showView('tahanan', $this->data, 'appui');
 			die;
 		}
 
-		$this->data['page_title'] = 'Laporan Cek Tahanan';
-		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cek Tahanan</a></li>';
 		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
 		$this->data['kategori'] = 'tahanan';
 		$this->showView('kategori', $this->data, 'appui');
