@@ -35,15 +35,61 @@
 
                     <!-- Get Started Block -->
                     <div class="block full">
-                        <!-- Get Started Title -->
                         <div class="block-title">
-                            <h2>Block Title</h2>
+                            <h2>Top Rank Laporan Satker</h3>
+                            <div class="block-options pull-left">
+                                <button onclick="javascript:laporan.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                            </div>
                         </div>
-                        <!-- END Get Started Title -->
+                        <form class="form-chart form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
+                            <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
+                            <?= comp\BOOTSTRAP::inputKey('size', '10') ?>
+                            <?= comp\BOOTSTRAP::inputKey('kategori', '') ?>
+                            <div class="form-group form-actions">
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-search"></i>
+                                        </span>
+                                        <?= comp\BOOTSTRAP::inputText('cari', 'text', '', 'class="form-control filter-table" placeholder="Cari satker ..."') ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <?= comp\BOOTSTRAP::inputSelect('group', $pilihan_group, '', 'class="form-control filter-table select-select2" placeholder="Pilih Group ..."') ?>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="input-group input-daterange" data-date-format="yyyy-mm-dd">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                        <input type="text" id="example-daterange1" name="example-daterange1" class="form-control" placeholder="From">
+                                        <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                                        <input type="text" id="example-daterange2" name="example-daterange2" class="form-control" placeholder="To">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="block full">
+                                    <div class="block-title">
+                                        <h2>Laporan Cek Tahanan</h2>
+                                    </div>
+                                    <div id="chart-tahanan" style="height: 380px;"></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="block full">
+                                    <div class="block-title">
+                                        <h2>Laporan Cegah Kebakaran</h2>
+                                    </div>
+                                    <div id="chart-kebakaran" style="height: 380px;"></div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- Get Started Content -->
-                        Start your creative project!
-                        <!-- END Get Started Content -->
+                        
                     </div>
                     <!-- END Get Started Block -->
                 </div>
