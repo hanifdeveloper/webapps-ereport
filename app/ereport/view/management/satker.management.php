@@ -106,6 +106,7 @@
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <span data-form-object="password"></span>
+                                <span class="help-block">*) Digunakan untuk login ke aplikasi mobile</span>
                             </div>
                         </form>
                     </div>
