@@ -21,6 +21,9 @@ class reports extends Model{
 			'longitude' => 0,
 			'datetime' => date('Y-m-d H:i:s'),
 		));
+
+		$this->baseUrl = $this->getUrl->baseUrl;
+		$this->imageUrl = $this->baseUrl.$this->dir_upload_image;
 	}
 
 	public function createRandomID($size = 10){
@@ -288,14 +291,20 @@ class reports extends Model{
 
 			$dataUpload['category_document_text'] = $value;
 			$dataUpload['lastupdate'] = FUNC::moments($dataUpload['datetime']);
+			$dataUpload['file_upload'] = !empty($dataUpload['file_upload']) ? explode(',', $dataUpload['file_upload']) : []; // Buat jadi array
+			if (empty($dataUpload['file_upload'])) {
+				$dataUpload['text_caption'] = 'Laporan belum diunggah !';
+				$dataUpload['lastupdate'] = '';
+			}
+
+			foreach ($dataUpload['file_upload'] as $key => $value) {
+				$dataUpload['file_upload'][$key] = $this->imageUrl.$value;
+			}
+
 			array_push($formListUpload, $dataUpload);
 		}
 
-		// $result['data_entry'] = $formEntry;
 		$result['data_list_upload'] = $formListUpload;
-
-		// $result['form_title'] = empty($id) ? 'Input Cek Tahanan' : 'Edit Cek Tahanan';
-		// $result['pilihan_kondisi'] = $this->getKondisi();
 		return $result;
 	}
 

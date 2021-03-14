@@ -110,7 +110,6 @@
 
                     <!-- Get Started Block -->
                     <div class="block full">
-                        <!-- Get Started Title -->
                         <div class="block-title">
                             <h2>Upload Dokumen</h2>
                         </div>
@@ -125,13 +124,15 @@
                                     <div class="timeline-content">
                                         <p class="push-bit"><strong><?= $value['category_document_text'] ?></strong></p>
                                         <p class="push-bit"><?= $value['text_caption'] ?></p>
-                                        <!-- <div class="row">
+                                        <div class="row">
+                                            <?php foreach ($value['file_upload'] as $file_upload): ?>
                                             <div class="col-sm-6 col-md-4 block-section">
-                                                <a href="img/placeholders/photos/photo11.jpg" data-toggle="lightbox-image">
-                                                    <img src="img/placeholders/photos/photo11.jpg" alt="image">
+                                                <a href="<?= $file_upload ?>" data-toggle="lightbox-image">
+                                                    <img src="<?= $file_upload ?>" alt="image">
                                                 </a>
                                             </div>
-                                        </div> -->
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </li>
                                 <?php endforeach; ?>
@@ -140,7 +141,7 @@
                         <!-- END Timeline Content -->
                     </div>
                     <!-- END Get Started Block -->
-                    <pre><?php print_r($data_laporan); ?></pre>
+                    <!-- <pre><?php //print_r($data_laporan); ?></pre> -->
                 </div>
                 <!-- END Page Content -->
             </div>
