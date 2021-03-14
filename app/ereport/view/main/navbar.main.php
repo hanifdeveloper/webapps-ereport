@@ -1,7 +1,7 @@
 <div id="sidebar">
     <!-- Sidebar Brand -->
     <div id="sidebar-brand" class="themed-background">
-        <a href="index.html" class="sidebar-title">
+        <a href="<?= $this->link(); ?>" class="sidebar-title">
             <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide"><strong>ADMIN PANEL</strong></span>
         </a>
     </div>
