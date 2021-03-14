@@ -42,7 +42,7 @@ satker.showTable = function(){
                                 onError: function(error){
                                     // console.log(error);
                                     progress.remove();
-                                    showMessage("danger", response.message);
+                                    showMessage("danger", error.message);
                                 }
                             });
                         }, 1000);
@@ -51,8 +51,9 @@ satker.showTable = function(){
             });
         },
         onPage: function(page_number){
+            //console.log(page_number);
             $(".form-table").find("#page").val(page_number);
-            $(".form-table").submit();
+            satker.showTable();
         }
     });
     console.clear();
@@ -71,7 +72,7 @@ satker.showForm = function(id){
                 data: form_content.serialize(),
                 token: "<?= $this->token; ?>",
                 onSuccess: function(response){
-                    console.log(response);
+                    //console.log(response);
                     progress.remove();
                     dialog.modal("hide");
                     satker.showTable();
@@ -80,7 +81,7 @@ satker.showForm = function(id){
                 onError: function(error){
                     console.log(error);
                     progress.remove();
-                    showMessage("danger", response.message);
+                    showMessage("danger", error.message);
                 }
             });
         }, 500);
@@ -93,7 +94,7 @@ satker.showForm = function(id){
             data: {id},
             token: "<?= $this->token; ?>",
             onSuccess: function(response){
-                console.log(response);
+                //console.log(response);
                 const data = response.data;
                 const form = data.form;
                 satker.form.createObject(form_content, {

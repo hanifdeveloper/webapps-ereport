@@ -241,6 +241,22 @@ class v1 extends application{
 						break;
 				}
 				break;
+
+			case 'laporan':
+				$input = $this->postValidate();
+				switch ($action) {
+					case 'tahanan':
+						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'tanggal' => '', 'group' => ''], $input);
+						$data = $reports->getListLaporanTahanan($input);
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
+					
+					default:
+						$this->showResponse($this->errorMsg, $this->errorCode);
+						break;
+				}
+				break;
 			
 			default:
 				$this->showResponse($this->errorMsg, $this->errorCode);

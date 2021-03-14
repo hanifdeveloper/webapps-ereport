@@ -36,6 +36,10 @@ class main extends application{
 	public function navbar(){
 		$this->subView('navbar', $this->data);
 	}
+
+	public function modal(){
+		$this->subView('modal', $this->data);
+	}
 	
 	protected function script(){
 		header('Content-Type: application/javascript');

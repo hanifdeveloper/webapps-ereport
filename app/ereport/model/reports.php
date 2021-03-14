@@ -216,6 +216,47 @@ class reports extends Model{
 		return $result;
 	}
 
+	public function getListLaporanTahanan($params){
+		$page = $params['page'];
+		$cari = '%'.$params['cari'].'%';
+		$tanggal = '%'.$params['tanggal'].'%';
+		$group = '%'.$params['group'].'%';
+		$query = 'FROM tb_cek_tahanan tahanan
+				JOIN tb_satker satker ON (tahanan.satker_id=satker.id_satker)
+				WHERE (satker.nama_satker LIKE ?) AND (satker.group_satker LIKE ?)';
+		$q_value = 'SELECT tahanan.*, satker.nama_satker, satker.group_satker '.$query.' ORDER BY group_satker, satker_id';
+		$q_count = 'SELECT COUNT(*) AS counts '.$query;
+		$keyValue = [$cari, $group];
+		$size = $params['size'];
+		$cursor = ($page - 1) * $size;
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			$value['tanggal_laporan'] = FUNC::tanggal($value['datetime'], 'long_date_time');
+			unset($value['password']);
+			array_push($contents, $value);
+		}
+		
+		$dataCount = $this->getData($q_count, $keyValue);
+		$result['number'] = $cursor + 1;
+		$result['page'] = $page;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
+		$result['contents'] = $contents;
+		// $result['query'] = $dataValue['query'];
+		return $result;
+	}
+
 	public function satkerLogin($params){
 		$satker = $params['satker'];
 		$password = FUNC::encryptor($params['password']);

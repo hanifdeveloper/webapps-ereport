@@ -419,6 +419,7 @@ frameduz = function(id) {
                 },
                 onError: function(error){
                     console.log(error);
+                    alert(error.message.text);
                 }
             });
         }, 500);
