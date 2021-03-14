@@ -243,6 +243,49 @@ class reports extends Model{
 
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
+			$value['id_laporan'] = $value['id_cek_tahanan'];
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			$value['tanggal_laporan'] = FUNC::tanggal($value['datetime'], 'long_date_time');
+			unset($value['password']);
+			array_push($contents, $value);
+		}
+		
+		$dataCount = $this->getData($q_count, $keyValue);
+		$result['number'] = $cursor + 1;
+		$result['page'] = $page;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
+		$result['contents'] = $contents;
+		// $result['query'] = $dataValue['query'];
+		return $result;
+	}
+
+	public function getListLaporanKebakaran($params){
+		$page = $params['page'];
+		$cari = '%'.$params['cari'].'%';
+		$tanggal = '%'.$params['tanggal'].'%';
+		$group = '%'.$params['group'].'%';
+		$query = 'FROM tb_cek_kebakaran kebakaran
+				JOIN tb_satker satker ON (kebakaran.satker_id=satker.id_satker)
+				WHERE (satker.nama_satker LIKE ?) AND (satker.group_satker LIKE ?)';
+		$q_value = 'SELECT kebakaran.*, satker.nama_satker, satker.group_satker '.$query.' ORDER BY group_satker, satker_id';
+		$q_count = 'SELECT COUNT(*) AS counts '.$query;
+		$keyValue = [$cari, $group];
+		$size = $params['size'];
+		$cursor = ($page - 1) * $size;
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			$value['id_laporan'] = $value['id_cek_kebakaran'];
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
 			$value['tanggal_laporan'] = FUNC::tanggal($value['datetime'], 'long_date_time');
 			unset($value['password']);
@@ -276,6 +319,54 @@ class reports extends Model{
 		$cek_id = $result['data_entry']['id_cek_tahanan'];
 		$formUpload = $this->getTabel('tb_document_upload');
 		$listUpload = $this->getListKategoriUpload()['cek_tahanan'];
+		$formListUpload = [];
+		foreach ($listUpload as $key => $value) {
+			$formUpload['id_document_upload']++;
+			$dataUpload = $this->getData('SELECT * FROM tb_document_upload WHERE (cek_id = ?) AND (category_document = ?) LIMIT 1', [$cek_id, $key]);
+			if ($dataUpload['count'] > 0) {
+				$dataUpload = $dataUpload['value'][0];
+			}
+			else {
+				$dataUpload = $formUpload;
+				$dataUpload['cek_id'] = $cek_id;
+				$dataUpload['category_document'] = $key;
+			}
+
+			$dataUpload['category_document_text'] = $value;
+			$dataUpload['lastupdate'] = FUNC::moments($dataUpload['datetime']);
+			$dataUpload['file_upload'] = !empty($dataUpload['file_upload']) ? explode(',', $dataUpload['file_upload']) : []; // Buat jadi array
+			if (empty($dataUpload['file_upload'])) {
+				$dataUpload['text_caption'] = 'Laporan belum diunggah !';
+				$dataUpload['lastupdate'] = '';
+			}
+
+			foreach ($dataUpload['file_upload'] as $key => $value) {
+				$dataUpload['file_upload'][$key] = $this->imageUrl.$value;
+			}
+
+			array_push($formListUpload, $dataUpload);
+		}
+
+		$result['data_list_upload'] = $formListUpload;
+		return $result;
+	}
+
+	public function getDetailCekKebakaranSatker($id){
+		$dataEntry = $this->getData('SELECT kebakaran.*, satker.nama_satker, satker.group_satker
+									FROM tb_cek_kebakaran kebakaran
+									JOIN tb_satker satker
+									WHERE (id_cek_kebakaran = ?) LIMIT 1', [$id]);
+
+		if ($dataEntry['count'] == 0) {
+			return [];
+		}
+
+		$result['data_entry'] = $dataEntry['value'][0];
+		$result['data_entry']['lastupdate'] = FUNC::tanggal($result['data_entry']['datetime'], 'long_date_time');
+		
+		$cek_id = $result['data_entry']['id_cek_kebakaran'];
+		$formUpload = $this->getTabel('tb_document_upload');
+		$listUpload = $this->getListKategoriUpload()['cek_kebakaran'];
 		$formListUpload = [];
 		foreach ($listUpload as $key => $value) {
 			$formUpload['id_document_upload']++;

@@ -251,6 +251,13 @@ class v1 extends application{
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);
 						break;
+
+					case 'kebakaran':
+						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'tanggal' => '', 'group' => ''], $input);
+						$data = $reports->getListLaporanKebakaran($input);
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
 					
 					default:
 						$this->showResponse($this->errorMsg, $this->errorCode);

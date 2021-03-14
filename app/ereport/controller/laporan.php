@@ -20,7 +20,11 @@ class laporan extends main{
 		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cek Tahanan</a></li>';
 
 		if ($detail) {
-			$this->data['data_laporan'] = $this->reports->getDetailCekTahananSatker($detail);
+			$data_laporan = $this->reports->getDetailCekTahananSatker($detail);
+			if (empty($data_laporan)) {
+				$this->redirect($this->getController().'/tahanan');
+			}
+			$this->data['data_laporan'] = $data_laporan;
 			$this->showView('tahanan', $this->data, 'appui');
 			die;
 		}
@@ -31,13 +35,19 @@ class laporan extends main{
 	}
 
 	public function kebakaran($detail){
+		$this->data['page_title'] = 'Laporan Cegah Kebakaran';
+		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cegah Kebakaran</a></li>';
+
 		if ($detail) {
-			echo 'Detail: '.$detail;
+			$data_laporan = $this->reports->getDetailCekKebakaranSatker($detail);
+			if (empty($data_laporan)) {
+				$this->redirect($this->getController().'/kebakaran');
+			}
+			$this->data['data_laporan'] = $data_laporan;
+			$this->showView('kebakaran', $this->data, 'appui');
 			die;
 		}
 
-		$this->data['page_title'] = 'Laporan Cegah Kebakaran';
-		$this->data['breadcrumb'] = '<li>Laporan</li><li><a href="'.$this->modul.'/'.__FUNCTION__.'">Cegah Kebakaran</a></li>';
 		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
 		$this->data['kategori'] = 'kebakaran';
 		$this->showView('kategori', $this->data, 'appui');

@@ -92,8 +92,8 @@
                                             <td>{nama_group}</td>
                                             <td>{tanggal_laporan}</td>
                                             <td>
-                                                <a href="<?= $this->modul.'/'.$kategori.'/' ?>{id_cek_tahanan}" target="_blank" data-toggle="tooltip" title="Detail Laporan" class="btn btn-effect-ripple btn-sm btn-info">Detail</a>
-                                                <button data-toggle="tooltip" title="Delete Data" id="{id_cek_tahanan}" class="btn btn-effect-ripple btn-sm btn-danger btn-delete" data-message="Yakin data laporan tahanan {nama_satker} akan dihapus ?"><i class="fa fa-times"></i></button>
+                                                <a href="<?= $this->modul.'/'.$kategori.'/' ?>{id_laporan}" target="_blank" data-toggle="tooltip" title="Detail Laporan" class="btn btn-effect-ripple btn-sm btn-info">Detail</a>
+                                                <button data-toggle="tooltip" title="Delete Data" id="{id_laporan}" class="btn btn-effect-ripple btn-sm btn-danger btn-delete" data-message="Yakin data laporan tahanan {nama_satker} akan dihapus ?"><i class="fa fa-times"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>
