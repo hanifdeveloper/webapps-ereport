@@ -263,6 +263,32 @@ class v1 extends application{
 						break;
 				}
 				break;
+
+			case 'statistik':
+				$input = $this->postValidate();
+				$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'group' => '', 'start_date' => date('Y-m-d'), 'end_date' => date('Y-m-d')], $input);
+				switch ($action) {
+					case 'tahanan':
+					case 'kebakaran':
+						$data = ($action == 'tahanan') ? $reports->getListJumlahLaporanTahanan($input) : $reports->getListJumlahLaporanKebakaran($input);
+						$statistik = [
+							'labels' => [],
+							'values' => []
+						];
+						foreach ($data['contents'] as $key => $value) {
+							array_push($statistik['labels'], $value['nama_satker']);
+							array_push($statistik['values'], $value['jumlah_laporan']);
+						}
+						$data['statistik'] = $statistik;
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
+					
+					default:
+						$this->showResponse($this->errorMsg, $this->errorCode);
+						break;
+				}
+				break;
 			
 			default:
 				$this->showResponse($this->errorMsg, $this->errorCode);

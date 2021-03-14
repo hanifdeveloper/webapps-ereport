@@ -253,7 +253,6 @@ class reports extends Model{
 			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
 			$value['tanggal_laporan'] = !empty($value['datetime']) ? FUNC::tanggal($value['datetime'], 'long_date_time') : '-';
-			unset($value['password']);
 			array_push($contents, $value);
 		}
 		
@@ -298,12 +297,10 @@ class reports extends Model{
 
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
-			// $value['id_laporan'] = $value['id_cek_kebakaran'];
 			// Check Null Value
 			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
 			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
 			$value['tanggal_laporan'] = !empty($value['datetime']) ? FUNC::tanggal($value['datetime'], 'long_date_time') : '-';
-			unset($value['password']);
 			array_push($contents, $value);
 		}
 		
@@ -315,6 +312,110 @@ class reports extends Model{
 		$result['totalpages'] = ceil($result['total'] / $result['size']);
 		$result['contents'] = $contents;
 		// $result['query'] = $dataValue['query'];
+		return $result;
+	}
+
+	public function getListJumlahLaporanTahanan($params){
+		$page = $params['page'];
+		$cari = '%'.$params['cari'].'%';
+		$group = '%'.$params['group'].'%';
+		$start_date = $params['start_date'];
+		$end_date = $params['end_date'];
+		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
+		// $q_value = 'SELECT 
+		// 		satker.id_satker, 
+		// 		satker.nama_satker, 
+		// 		satker.group_satker, 
+		// 		(SELECT COUNT(*) FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+		// 		FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+
+		$q_value = 'SELECT 
+				satker.id_satker, 
+				satker.nama_satker, 
+				satker.group_satker, 
+				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
+		$keyValue = [$cari, $group];
+		$size = $params['size'];
+		$cursor = ($page - 1) * $size;
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			// Check Null Value
+			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			array_push($contents, $value);
+		}
+		
+		$dataCount = $this->getData($q_count, $keyValue);
+		$result['number'] = $cursor + 1;
+		$result['page'] = $page;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
+		$result['contents'] = $contents;
+		$result['query'] = $dataValue['query'];
+		return $result;
+	}
+
+	public function getListJumlahLaporanKebakaran($params){
+		$page = $params['page'];
+		$cari = '%'.$params['cari'].'%';
+		$group = '%'.$params['group'].'%';
+		$start_date = $params['start_date'];
+		$end_date = $params['end_date'];
+		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
+		// $q_value = 'SELECT 
+		// 		satker.id_satker, 
+		// 		satker.nama_satker, 
+		// 		satker.group_satker, 
+		// 		(SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+		// 		FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+
+		$q_value = 'SELECT 
+				satker.id_satker, 
+				satker.nama_satker, 
+				satker.group_satker, 
+				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
+		$keyValue = [$cari, $group];
+		$size = $params['size'];
+		$cursor = ($page - 1) * $size;
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			// Check Null Value
+			$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			array_push($contents, $value);
+		}
+		
+		$dataCount = $this->getData($q_count, $keyValue);
+		$result['number'] = $cursor + 1;
+		$result['page'] = $page;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
+		$result['contents'] = $contents;
+		$result['query'] = $dataValue['query'];
 		return $result;
 	}
 

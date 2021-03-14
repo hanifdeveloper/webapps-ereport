@@ -107,7 +107,8 @@ ___________                                .___             ____   _____________
                 // 'css/themes/customs.css',
                 'css/themes.css',
                 // 'css/chat.css',
-                'plugins/sweetalert/sweetalert.css',
+                // 'plugins/sweetalert/sweetalert.css',
+                'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css',
             ),
             'js' => array(
                 'js/vendor/modernizr-3.3.1.min.js',
@@ -115,7 +116,11 @@ ___________                                .___             ____   _____________
                 'js/vendor/bootstrap.min.js',
                 'js/plugins.js',
                 'js/app.js',
-                'plugins/sweetalert/sweetalert.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js',
+                'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js',
+                'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
+
+                // 'plugins/sweetalert/sweetalert.min.js',
                 // 'plugins/highcharts/highcharts.js',
                 // 'plugins/highcharts/exporting.js',
                 // 'plugins/highcharts/export-data.js',
