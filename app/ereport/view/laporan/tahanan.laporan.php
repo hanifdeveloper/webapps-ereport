@@ -36,7 +36,10 @@
                     <!-- Get Started Block -->
                     <div class="block full">
                         <div class="block-title">
-                            <h2><?= $data_laporan['data_entry']['nama_satker'] ?></h2>
+                            <h2>
+                                <?= $data_laporan['data_entry']['nama_satker'] ?>
+                                <span style="display: block;font-size: 12px;font-weight: normal;">Last Update: <?= $data_laporan['data_entry']['lastupdate']; ?></span>
+                            </h2>
                             <ul class="nav nav-tabs" data-toggle="tabs">
                                 <li class="active"><a href="#kondisi_tahanan">Kondisi Tahanan</a></li>
                                 <li><a href="#kondisi_ruang_tahanan">Kondisi Ruang Tahanan</a></li>
@@ -102,13 +105,42 @@
                             </div>
                         </div>
                         <!-- END Tabs Content -->
-                        
-                        <!-- <pre>
-                            <?php print_r($data_laporan); ?>
-                        </pre> -->
-                        
                     </div>
                     <!-- END Get Started Block -->
+
+                    <!-- Get Started Block -->
+                    <div class="block full">
+                        <!-- Get Started Title -->
+                        <div class="block-title">
+                            <h2>Upload Dokumen</h2>
+                        </div>
+                        
+                        <!-- Timeline Content -->
+                        <div class="timeline block-content-full">
+                            <ul class="timeline-list">
+                                <?php foreach ($data_laporan['data_list_upload'] as $value): ?>
+                                <li>
+                                    <div class="timeline-time"><?= $value['lastupdate'] ?></div>
+                                    <div class="timeline-icon themed-background-danger text-light-op"><i class="gi gi-picture"></i></div>
+                                    <div class="timeline-content">
+                                        <p class="push-bit"><strong><?= $value['category_document_text'] ?></strong></p>
+                                        <p class="push-bit"><?= $value['text_caption'] ?></p>
+                                        <!-- <div class="row">
+                                            <div class="col-sm-6 col-md-4 block-section">
+                                                <a href="img/placeholders/photos/photo11.jpg" data-toggle="lightbox-image">
+                                                    <img src="img/placeholders/photos/photo11.jpg" alt="image">
+                                                </a>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <!-- END Timeline Content -->
+                    </div>
+                    <!-- END Get Started Block -->
+                    <pre><?php print_r($data_laporan); ?></pre>
                 </div>
                 <!-- END Page Content -->
             </div>

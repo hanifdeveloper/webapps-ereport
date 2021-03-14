@@ -268,33 +268,31 @@ class reports extends Model{
 		}
 
 		$result['data_entry'] = $dataEntry['value'][0];
+		$result['data_entry']['lastupdate'] = FUNC::tanggal($result['data_entry']['datetime'], 'long_date_time');
 		
-		// $formEntry = $this->getTabel('tb_cek_tahanan');
-		// $formEntry = ($dataEntry['count'] > 0) ? $this->paramsFilter($formEntry, $dataEntry['value'][0]) : $formEntry;
-		// $formEntry['satker_id'] = $satker;
-		
-		// $cek_id = $formEntry['id_cek_tahanan'];
-		// $formUpload = $this->getTabel('tb_document_upload');
-		// $listUpload = $this->getListKategoriUpload()['cek_tahanan'];
-		// $formListUpload = [];
-		// foreach ($listUpload as $key => $value) {
-		// 	$formUpload['id_document_upload']++;
-		// 	$dataUpload = $this->getData('SELECT * FROM tb_document_upload WHERE (cek_id = ?) AND (category_document = ?) LIMIT 1', [$cek_id, $key]);
-		// 	if ($dataUpload['count'] > 0) {
-		// 		$dataUpload = $dataUpload['value'][0];
-		// 	}
-		// 	else {
-		// 		$dataUpload = $formUpload;
-		// 		$dataUpload['cek_id'] = $cek_id;
-		// 		$dataUpload['category_document'] = $key;
-		// 	}
+		$cek_id = $result['data_entry']['id_cek_tahanan'];
+		$formUpload = $this->getTabel('tb_document_upload');
+		$listUpload = $this->getListKategoriUpload()['cek_tahanan'];
+		$formListUpload = [];
+		foreach ($listUpload as $key => $value) {
+			$formUpload['id_document_upload']++;
+			$dataUpload = $this->getData('SELECT * FROM tb_document_upload WHERE (cek_id = ?) AND (category_document = ?) LIMIT 1', [$cek_id, $key]);
+			if ($dataUpload['count'] > 0) {
+				$dataUpload = $dataUpload['value'][0];
+			}
+			else {
+				$dataUpload = $formUpload;
+				$dataUpload['cek_id'] = $cek_id;
+				$dataUpload['category_document'] = $key;
+			}
 
-		// 	$dataUpload['category_document_text'] = $value;
-		// 	array_push($formListUpload, $dataUpload);
-		// }
+			$dataUpload['category_document_text'] = $value;
+			$dataUpload['lastupdate'] = FUNC::moments($dataUpload['datetime']);
+			array_push($formListUpload, $dataUpload);
+		}
 
 		// $result['data_entry'] = $formEntry;
-		// $result['data_list_upload'] = $formListUpload;
+		$result['data_list_upload'] = $formListUpload;
 
 		// $result['form_title'] = empty($id) ? 'Input Cek Tahanan' : 'Edit Cek Tahanan';
 		// $result['pilihan_kondisi'] = $this->getKondisi();

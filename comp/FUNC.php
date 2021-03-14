@@ -43,43 +43,43 @@ class FUNC{
 		$years = round($time_difference / 29030400 ); 
 	
 		if($seconds <= 60){
-			echo 'Baru saja'; 
+			return 'Baru saja'; 
 		}
 		else if($minutes <= 60){
 			if($minutes == 1)
-				echo 'Satu menit yang lalu'; 
+				return 'Satu menit yang lalu'; 
 			else
-				echo $minutes.' menit yang lalu'; 
+				return $minutes.' menit yang lalu'; 
 		}
 		else if($hours <= 24){
 			if($hours == 1)
-				echo 'Satu jam yang lalu';
+				return 'Satu jam yang lalu';
 			else
-				echo $hours.' jam yang lalu';
+				return $hours.' jam yang lalu';
 		}
 		else if($days <= 7){
 			if($days == 1)
-				echo 'Satu hari yang lalu';
+				return 'Satu hari yang lalu';
 			else
-				echo $days.' hari yang lalu';
+				return $days.' hari yang lalu';
 		}
 		else if($weeks <= 4){
 			if($weeks == 1)
-				echo 'Satu minggu yang lalu';
+				return 'Satu minggu yang lalu';
 			else
-				echo $weeks.' minggu yang lalu';
+				return $weeks.' minggu yang lalu';
 		}
 		else if($months <= 12){
 			if($months == 1)
-				echo 'Satu bulan yang lalu';
+				return 'Satu bulan yang lalu';
 			else
-				echo $months.' bulan yang lalu';
+				return $months.' bulan yang lalu';
 		}
 		else{
 			if($years == 1)
-				echo 'Satu tahun yang lalu';
+				return 'Satu tahun yang lalu';
 			else
-			echo $years.' tahun yang lalu';
+				return $years.' tahun yang lalu';
 		}
 	}
 	
