@@ -56,10 +56,6 @@
     <!-- END Page Wrapper -->
 
     <!-- jQuery, Bootstrap, jQuery plugins and Custom JS code -->
-    <!-- <script src="js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="js/vendor/bootstrap.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/app.js"></script> -->
     <?= $jsPath; ?>
     <script src="<?= $api_path.'/script'; ?>"></script>
 </body>
