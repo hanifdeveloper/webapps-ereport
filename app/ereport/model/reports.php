@@ -363,7 +363,7 @@ class reports extends Model{
 		$result['total'] = $dataCount['value'][0]['counts'];
 		$result['totalpages'] = ceil($result['total'] / $result['size']);
 		$result['contents'] = $contents;
-		$result['query'] = $dataValue['query'];
+		// $result['query'] = $dataValue['query'];
 		return $result;
 	}
 
@@ -415,7 +415,7 @@ class reports extends Model{
 		$result['total'] = $dataCount['value'][0]['counts'];
 		$result['totalpages'] = ceil($result['total'] / $result['size']);
 		$result['contents'] = $contents;
-		$result['query'] = $dataValue['query'];
+		// $result['query'] = $dataValue['query'];
 		return $result;
 	}
 

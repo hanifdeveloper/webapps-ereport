@@ -157,6 +157,8 @@
 
     const dashboard = new frameduz("#dashboard");
     dashboard.showChart = function(kategori){
+        const contexts = "#chart-"+kategori;
+        const progress = dashboard.createProgress($(contexts));
         setTimeout(function(){
             app.sendData({
                 url: "/ereport/statistik/"+kategori,
@@ -164,7 +166,7 @@
                 token: "<?= $this->token; ?>",
                 onSuccess: function(response){
                     console.log(response);
-                    createBarChart("#chart-"+kategori, response.data.statistik);
+                    createBarChart(contexts, response.data.statistik);
                 },
                 onError: function(error){
                     console.log(error);

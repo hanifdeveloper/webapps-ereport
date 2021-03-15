@@ -277,7 +277,7 @@ class v1 extends application{
 						];
 						foreach ($data['contents'] as $key => $value) {
 							array_push($statistik['labels'], $value['nama_satker']);
-							array_push($statistik['values'], $value['jumlah_laporan']);
+							array_push($statistik['values'], intval($value['jumlah_laporan']));
 						}
 						$data['statistik'] = $statistik;
 						$this->succesMsg['data'] = $data;
