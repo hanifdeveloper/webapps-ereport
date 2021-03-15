@@ -43,11 +43,11 @@
                         </div>
                         <form class="form-chart form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
                             <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
-                            <?= comp\BOOTSTRAP::inputKey('size', '10') ?>
+                            <!-- <?= comp\BOOTSTRAP::inputKey('size', '10') ?> -->
                             <?= comp\BOOTSTRAP::inputKey('start_date', '') ?>
                             <?= comp\BOOTSTRAP::inputKey('end_date', '') ?>
                             <div class="form-group form-actions">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-search"></i>
@@ -55,10 +55,18 @@
                                         <?= comp\BOOTSTRAP::inputText('cari', 'text', '', 'class="form-control filter-chart" placeholder="Cari satker ..."') ?>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <?= comp\BOOTSTRAP::inputSelect('group', $pilihan_group, '', 'class="form-control filter-chart select-select2" placeholder="Pilih Group ..."') ?>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-bar-chart-o"></i>
+                                        </span>
+                                        <?= comp\BOOTSTRAP::inputSelect('size', $pilihan_size, '10', 'class="form-control filter-chart select-select2" placeholder="Pilih Size ..."') ?>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-calendar"></i>

@@ -74,6 +74,15 @@ class reports extends Model{
 		];
 	}
 
+	public function getPilihanSizeLimit(){
+		return [
+			'0' => ['text' => 'Semua Data'],
+			'15' => ['text' => '15 Data'],
+			'10' => ['text' => '10 Data'],
+			'5' => ['text' => '5 Data'],
+		];
+	}
+
 	public function getPilihanSatker(){
 		$result = [];
 		$data = $this->getData('SELECT * FROM tb_satker ORDER BY id_satker');
@@ -322,13 +331,6 @@ class reports extends Model{
 		$start_date = $params['start_date'];
 		$end_date = $params['end_date'];
 		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
-		// $q_value = 'SELECT 
-		// 		satker.id_satker, 
-		// 		satker.nama_satker, 
-		// 		satker.group_satker, 
-		// 		(SELECT COUNT(*) FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-		// 		FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
-
 		$q_value = 'SELECT 
 				satker.id_satker, 
 				satker.nama_satker, 
@@ -374,13 +376,6 @@ class reports extends Model{
 		$start_date = $params['start_date'];
 		$end_date = $params['end_date'];
 		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
-		// $q_value = 'SELECT 
-		// 		satker.id_satker, 
-		// 		satker.nama_satker, 
-		// 		satker.group_satker, 
-		// 		(SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-		// 		FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
-
 		$q_value = 'SELECT 
 				satker.id_satker, 
 				satker.nama_satker, 

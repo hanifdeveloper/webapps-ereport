@@ -23,6 +23,7 @@ class main extends application{
 		$this->data['page_title'] = 'Dashboard';
 		$this->data['breadcrumb'] = '<li>Polda Kalbar</li><li><a href="'.$this->modul.'">Dashboard</a></li>';
 		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
+		$this->data['pilihan_size'] = $this->reports->getPilihanSizeLimit();
 		$this->showView('index', $this->data, 'appui');
 	}
 
