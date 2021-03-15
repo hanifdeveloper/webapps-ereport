@@ -275,10 +275,29 @@ class v1 extends application{
 							'labels' => [],
 							'values' => []
 						];
+						
+						/**
+						 * Urutkan data berdasarkan kolom jumlah_laporan
+						 * array_column => Ambil data pada kolom tertentu
+						 * array_multisort => urutkan data array, berdasarkan kolom
+						 */
+						$data_contents = $data['contents'];
+						$order_by_jumlah = array_column($data_contents, 'jumlah_laporan');
+						array_multisort($order_by_jumlah, SORT_DESC, $data_contents);
+
+						// Data Original
 						foreach ($data['contents'] as $key => $value) {
-							array_push($statistik['labels'], $value['nama_satker']);
-							array_push($statistik['values'], intval($value['jumlah_laporan']));
+							$statistik['labels'][$key] = $value['nama_satker'];
+							$statistik['values'][$key] = intval($value['jumlah_laporan']);
 						}
+
+						// Data Order
+						foreach ($data_contents as $key => $value) {
+							$statistik['labels'][$key] = $value['nama_satker'];
+							$statistik['values'][$key] = intval($value['jumlah_laporan']);
+						}
+
+						$data = [];
 						$data['statistik'] = $statistik;
 						$this->succesMsg['data'] = $data;
 						$this->showResponse($this->succesMsg);

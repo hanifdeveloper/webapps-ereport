@@ -334,7 +334,7 @@ class reports extends Model{
 				satker.nama_satker, 
 				satker.group_satker, 
 				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-				FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+				FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];
 		$size = $params['size'];
@@ -386,7 +386,7 @@ class reports extends Model{
 				satker.nama_satker, 
 				satker.group_satker, 
 				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-				FROM tb_satker satker '.$where.' ORDER BY jumlah_laporan DESC, group_satker, id_satker';
+				FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];
 		$size = $params['size'];
