@@ -48,7 +48,7 @@
                         <form class="form-table form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
                             <?= comp\BOOTSTRAP::inputKey('page', '1') ?>
                             <?= comp\BOOTSTRAP::inputKey('size', '10') ?>
-                            <?= comp\BOOTSTRAP::inputKey('group', '') ?>
+                            <?= comp\BOOTSTRAP::inputKey('group', $group) ?>
                             <?= comp\BOOTSTRAP::inputKey('kategori', $kategori) ?>
                             <div class="form-group form-actions">
                                 <div class="col-sm-4">

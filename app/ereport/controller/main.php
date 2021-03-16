@@ -12,19 +12,31 @@ class main extends application{
 		$this->modul = $this->link($this->getProject());
 		$this->data['api_path'] = $this->link('api/v1');
 		$this->data['url_path'] = $this->link($this->getProject().$this->getController());
-		// $userSession = $this->getSession('SESSION_LOGIN');
-		$userSession = isset($_COOKIE[$this->cookie]) ?? '';
-		// if (empty($userSession)) {
-		// 	$this->redirect('login');
-		// }
+		$this->pilihan_group = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
+		$this->userSession = $this->getSession('SESSION_LOGIN');
+		if (empty($this->userSession)) {
+			$this->redirect('login');
+		}
 	}
 
 	public function index(){
 		$this->data['page_title'] = 'Dashboard';
 		$this->data['breadcrumb'] = '<li>Polda Kalbar</li><li><a href="'.$this->modul.'">Dashboard</a></li>';
-		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
+
+		$group = $this->userSession['group_user'];
+		$this->data['pilihan_group'] = $this->pilihan_group;
+		$this->data['group'] = $group;
+		if (!empty($group)) {
+			$this->data['pilihan_group'] = [$group => $this->pilihan_group[$group]];
+		}
+
 		$this->data['pilihan_size'] = $this->reports->getPilihanSizeLimit();
 		$this->showView('index', $this->data, 'appui');
+	}
+
+	public function logout(){
+		$this->desSession();
+		$this->redirect('');
 	}
 
 	public function preloader(){

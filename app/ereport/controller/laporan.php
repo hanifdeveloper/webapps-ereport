@@ -9,6 +9,12 @@ class laporan extends main{
 	public function __construct(){
 		parent::__construct();
 		$this->modul = $this->link($this->getProject().$this->getController());
+		$group = $this->userSession['group_user'];
+		$this->data['pilihan_group'] = $this->pilihan_group;
+		$this->data['group'] = $group;
+		if (!empty($group)) {
+			$this->data['pilihan_group'] = [$group => $this->pilihan_group[$group]];
+		}
 	}
 
 	public function index(){
@@ -29,7 +35,6 @@ class laporan extends main{
 			die;
 		}
 
-		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
 		$this->data['kategori'] = 'tahanan';
 		$this->showView('kategori', $this->data, 'appui');
 	}
@@ -48,7 +53,6 @@ class laporan extends main{
 			die;
 		}
 
-		$this->data['pilihan_group'] = ['' => ['text' => 'Semua Group']] + $this->reports->getPilihanGroupSatker();
 		$this->data['kategori'] = 'kebakaran';
 		$this->showView('kategori', $this->data, 'appui');
 	}

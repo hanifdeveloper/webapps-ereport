@@ -30,7 +30,7 @@
                     <strong>ADMINISTRATOR</strong>
                 </li>
                 <li>
-                    <a href="<?= $this->link(); ?>">
+                    <a href="<?= $this->link('main/logout'); ?>">
                         <i class="fa fa-power-off fa-fw pull-right"></i>
                         Log out
                     </a>

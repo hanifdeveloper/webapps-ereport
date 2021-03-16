@@ -31,7 +31,7 @@ ___________                                .___             ____   _____________
         'web_keywords' => 'framework, php, composer, github',
         'web_email' => 'hanif.softdev@gmail.com',
         'web_header' => 'Dashboard',
-        'web_footer' => '<strong>AH. Softdev</strong> &copy; Copyright 2020',
+        'web_footer' => 'Created By:<br>Brigjen Pol. Asep Safrudin, SIK',
         'web_version' => '<b>Version: </b> 7.0.0',
         'token' => 'grsosr7ov6mmt84k5m1av95od2',
         'dir_upload_image' => 'upload/image/',
@@ -88,15 +88,6 @@ ___________                                .___             ____   _____________
                 'js/font-awesome.com.js',
             ),
         ),
-        // 'midone' => array(
-        //     'basePath' => 'midone/', // Path template
-        //     'css' => array(
-        //         'dist/css/app.css',
-        //     ),
-        //     'js' => array(
-        //         'dist/js/app.js',
-        //     ),
-        // ),
         'appui' => array(
             'basePath' => 'appui-27/', // Path template
             'css' => array(
@@ -104,10 +95,7 @@ ___________                                .___             ____   _____________
                 'css/plugins.css',
                 'css/main.css',
                 'css/themes/passion.css',
-                // 'css/themes/customs.css',
                 'css/themes.css',
-                // 'css/chat.css',
-                // 'plugins/sweetalert/sweetalert.css',
                 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css',
             ),
             'js' => array(
@@ -119,13 +107,6 @@ ___________                                .___             ____   _____________
                 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js',
                 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js',
                 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
-
-                // 'plugins/sweetalert/sweetalert.min.js',
-                // 'plugins/highcharts/highcharts.js',
-                // 'plugins/highcharts/exporting.js',
-                // 'plugins/highcharts/export-data.js',
-                // 'https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js',
-                // 'https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js',
             ),
         ),
     ),

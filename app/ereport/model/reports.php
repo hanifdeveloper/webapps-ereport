@@ -94,9 +94,9 @@ class reports extends Model{
 		return $result;
 	}
 
-	public function getPilihanGroupSatker(){
+	public function getPilihanGroupSatker($group = ''){
 		$result = [];
-		$data = $this->getData('SELECT * FROM tb_satker WHERE (group_satker = ?) ORDER BY id_satker', ['']);
+		$data = $this->getData('SELECT * FROM tb_satker WHERE (group_satker = ?) ORDER BY id_satker', [$group]);
 		foreach ($data['value'] as $key => $value) {
 			$result[$value['id_satker']] = ['text' => $value['nama_satker']];
 		}
@@ -559,6 +559,13 @@ class reports extends Model{
 
 	public function checkUsername($username){
 		$data = $this->getData('SELECT * FROM tb_user WHERE (username = ?) LIMIT 1', [$username]);
+		return ($data['count'] > 0) ? $data['value'][0] : [];
+	}
+
+	public function userLogin($params){
+		$username = $params['username'];
+		$password = FUNC::encryptor($params['password']);
+		$data = $this->getData('SELECT * FROM tb_user WHERE (username = ?) AND (password = ?) LIMIT 1', [$username, $password]);
 		return ($data['count'] > 0) ? $data['value'][0] : [];
 	}
 
