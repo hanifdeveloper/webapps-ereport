@@ -30,8 +30,65 @@ class v1 extends application{
 			case 'user':
 				$input = $this->postValidate();
 				switch ($action) {
-					case 'login':
-						# code...
+					case 'form':
+						$data = $reports->getFormUser($input['id']);
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
+
+					case 'list':
+						$input = $reports->paramsFilter(['page' => 1, 'size' => 10, 'cari' => '', 'group' => ''], $input);
+						$data = $reports->getListUser($input);
+						$this->succesMsg['data'] = $data;
+						$this->showResponse($this->succesMsg);
+						break;
+						
+					case 'save':
+						// Check Username
+						$checkUser = $reports->checkUsername($input['username']);
+						if (!empty($checkUser)) {
+							if ($checkUser['id_user'] != $input['id_user']) {
+								$this->showResponse(array(
+									'status' => 'error', 'message' => array(
+										'title' => 'Maaf',
+										'text' => 'Username sudah ada yang menggunakan',
+										// 'text' => json_encode($checkUser),
+									))
+								);
+								die;
+							}
+						}
+
+						$data = $reports->getFormUser($input['id_user']);
+						$data = $reports->paramsFilter($data['form'], $input);
+						$data['password'] = FUNC::encryptor($data['password']);
+						$result = $reports->save_update('tb_user', $data);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah disimpan',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
+						break;
+
+					case 'delete':
+						$result = $reports->delete('tb_user', ['id_user' => $input['id']]);
+						$this->errorMsg = ($result['success']) ? 
+											array('status' => 'success', 'message' => array(
+												'title' => 'Sukses',
+												'text' => 'Data telah dihapus',
+											)) : 
+											array('status' => 'error', 'message' => array(
+												'title' => 'Maaf',
+												'text' => $result['message'],
+											)); 
+
+						$this->showResponse($this->errorMsg);
 						break;
 					
 					default:

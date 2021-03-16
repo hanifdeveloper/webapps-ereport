@@ -25,7 +25,7 @@
                     <a href="<?= $this->link('management') ?>" class="sidebar-nav-menu"><i class="fa fa-chevron-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="gi gi-file_export sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">Management</span></a>
                     <ul>
                         <li><a href="<?= $this->link('management/satker') ?>">Satker</a></li>
-                        <!-- <li><a href="<?= $this->link('management/user') ?>">User</a></li> -->
+                        <li><a href="<?= $this->link('management/user') ?>">User</a></li>
                     </ul>
                 </li>
                 <li class="sidebar-separator">

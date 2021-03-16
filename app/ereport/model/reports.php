@@ -10,6 +10,7 @@ class reports extends Model{
 		parent::__construct();
         parent::setConnection('ereport');
         parent::setDefaultValue(array(
+			'id_user' => $this->createRandomID(10),
 			'id_satker' => $this->createRandomID(5),
 			'id_cek_tahanan' => $this->createRandomID(10),
 			'id_cek_kebakaran' => $this->createRandomID(10),
@@ -103,6 +104,15 @@ class reports extends Model{
 		return $result;
 	}
 
+	public function getFormUser($id = ''){
+		$form = $this->getDataTabel('tb_user', ['id_user', $id]);
+		$form['password'] = !empty($form['password']) ? FUNC::decryptor($form['password']) : 'ereport';
+		$result['form'] = $form;
+		$result['form_title'] = empty($id) ? 'Input User' : 'Edit User';
+		$result['pilihan_group'] = ['' => ['text' => '-- Pilih Satker --']] + $this->getPilihanGroupSatker();
+		return $result;
+	}
+
 	public function getFormSatker($id = ''){
 		$form = $this->getDataTabel('tb_satker', ['id_satker', $id]);
 		$form['password'] = !empty($form['password']) ? FUNC::decryptor($form['password']) : 'ereport';
@@ -188,6 +198,43 @@ class reports extends Model{
 		$result['form_entry'] = $formEntry;
 		$result['form_list_upload'] = $formListUpload;
 		$result['form_title'] = empty($id) ? 'Input Cek Kebakaran' : 'Edit Cek Kebakaran';
+		return $result;
+	}
+
+	public function getListUser($params){
+		$page = $params['page'];
+		$cari = '%'.$params['cari'].'%';
+		$group = '%'.$params['group'].'%';
+		$query = 'FROM tb_user users WHERE (username LIKE ?) AND (group_user LIKE ?) AND (group_user <> "")';
+		$q_value = 'SELECT * '.$query.' ORDER BY group_user, username';
+		$q_count = 'SELECT COUNT(*) AS counts '.$query;
+		$keyValue = [$cari, $group];
+		$size = $params['size'];
+		$cursor = ($page - 1) * $size;
+		$pilihan_satker = $this->getPilihanSatker();
+		
+		if ($size == 0) {
+			$dataValue = $this->getData($q_value, $keyValue);
+		}
+		else {
+			$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+		}
+
+		$contents = [];
+		foreach ($dataValue['value'] as $key => $value) {
+			$value['group_user'] = isset($pilihan_satker[$value['group_user']]) ? $pilihan_satker[$value['group_user']]['text'] : '';
+			// unset($value['password']);
+			array_push($contents, $value);
+		}
+		
+		$dataCount = $this->getData($q_count, $keyValue);
+		$result['number'] = $cursor + 1;
+		$result['page'] = $page;
+		$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+		$result['total'] = $dataCount['value'][0]['counts'];
+		$result['totalpages'] = ceil($result['total'] / $result['size']);
+		$result['contents'] = $contents;
+		$result['query'] = $dataValue['query'];
 		return $result;
 	}
 
@@ -508,6 +555,11 @@ class reports extends Model{
 
 		$result['data_list_upload'] = $formListUpload;
 		return $result;
+	}
+
+	public function checkUsername($username){
+		$data = $this->getData('SELECT * FROM tb_user WHERE (username = ?) LIMIT 1', [$username]);
+		return ($data['count'] > 0) ? $data['value'][0] : [];
 	}
 
 	public function satkerLogin($params){

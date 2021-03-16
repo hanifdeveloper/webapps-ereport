@@ -265,6 +265,7 @@ app = {
 
 frameduz = function(id) {
     modul = $(id);
+    // if (modul.length == 0) return;
     table = {
         content: modul.find(".fztable-content"),
         contentTbody: modul.find(".fztable-content .table tbody"),

@@ -42,7 +42,7 @@
                         <div class="block-title">
                             <h2>Total Satker : <span class="total-data">0</span> Data</h3>
                             <div class="block-options pull-left">
-                                <button onclick="javascript:satker.showTable();" class="btn btn-effect-ripple btn-default" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
+                                <button class="btn btn-effect-ripple btn-default btn-reload" data-toggle="tooltip" title="" style="overflow: hidden; position: relative;" data-original-title="Reload"><i class="fa fa-refresh"></i></button>
                             </div>
                         </div>
                         <form class="form-table form-horizontal form-bordered" onsubmit="return false;" autocomplete="off">
