@@ -37,6 +37,7 @@ CREATE TABLE `tb_cek_kebakaran` (
 
 LOCK TABLES `tb_cek_kebakaran` WRITE;
 /*!40000 ALTER TABLE `tb_cek_kebakaran` DISABLE KEYS */;
+INSERT INTO `tb_cek_kebakaran` VALUES ('6MBTDZSMGZ','54TYD','OK','2021-03-09 09:53:57');
 /*!40000 ALTER TABLE `tb_cek_kebakaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,6 +73,7 @@ CREATE TABLE `tb_cek_tahanan` (
 
 LOCK TABLES `tb_cek_tahanan` WRITE;
 /*!40000 ALTER TABLE `tb_cek_tahanan` DISABLE KEYS */;
+INSERT INTO `tb_cek_tahanan` VALUES ('HH1CK5HM0O','54TYD',10,10,0,'Air Mengalir','Baik','Baik','Cor Beton','Baik','Ada (Aktif)','','','2021-03-09 09:50:33');
 /*!40000 ALTER TABLE `tb_cek_tahanan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,6 +132,33 @@ LOCK TABLES `tb_satker` WRITE;
 INSERT INTO `tb_satker` VALUES ('2L8J1','','Polresta Landak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('54TYD','','Polresta Pontianak Kota','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('7QXVP','','Polresta Singkawang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('H9XOF','54TYD','Polsek Pontianak Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('N8K8V','2L8J1','Polsek Sebangki','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('Q15SC','7QXVP','Polsek Singkawang Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('SLGDB','7QXVP','Polsek Singkawang Tengah','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('T0IL7','7QXVP','Polsek Singkawang Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('UFZHT','54TYD','Polsek Pontianak Selatan','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('WRMUH','2L8J1','Polsek Ngabang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09');
 /*!40000 ALTER TABLE `tb_satker` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_user`
+--
+
+DROP TABLE IF EXISTS `tb_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_user` (
+  `id_user` varchar(10) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `group_user` varchar(5) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_user`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_user`
+--
+
+LOCK TABLES `tb_user` WRITE;
+/*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
+INSERT INTO `tb_user` VALUES ('3PY0Y8VXGI','singkawang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','7QXVP'),('7O0JZFU1LH','admin','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09',''),('J0NVB2IKI2','pontianak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','54TYD'),('TQM4PZ2OXV','landak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','2L8J1');
+/*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -140,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-09  2:18:55
+-- Dump completed on 2021-03-16  7:43:35
