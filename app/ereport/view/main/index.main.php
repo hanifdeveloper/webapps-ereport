@@ -62,7 +62,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-bar-chart-o"></i>
                                         </span>
-                                        <?= comp\BOOTSTRAP::inputSelect('size', $pilihan_size, '10', 'class="form-control filter-chart select-select2" placeholder="Pilih Size ..."') ?>
+                                        <?= comp\BOOTSTRAP::inputSelect('size', $pilihan_size, '', 'class="form-control filter-chart select-select2" placeholder="Pilih Size ..."') ?>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
