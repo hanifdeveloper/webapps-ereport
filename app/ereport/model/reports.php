@@ -39,13 +39,26 @@ class reports extends Model{
 	// Form Entry Cek Tahanan
 	public function getKondisi(){
 		return [
-			'kamar_mandi' => ['Air Mengalir', 'Air Tidak Mengalir'],
+			'kamar_mandi' => ['Air Mengalir', 'Air Tidak Mengalir', 'WC Tersumbat'],
 			'dinding_tembok' => ['Baik', 'Retak', 'Indikasi Rusak'],
-			'jeruji' => ['Baik', 'Kropos', 'Rusak Parah'],
-			'material_platfon' => ['Cor Beton', 'GRC', 'Triplek'],
+			'kondisi_jeruji' => ['Baik', 'Kropos', 'Rusak Parah'],
+			'material_plafon' => ['Cor Beton', 'GRC', 'Triplek'],
 			'jendela_ventilasi' => ['Baik', 'Kropos', 'Indikasi Rusak'],
-			'cctv' => ['Ada (Aktif)', 'Tidak Ada', 'Ada (Tidak Aktif)'],
+			'kondisi_penerangan' => ['Terang', 'Redup', 'Mati'],
+			'kondisi_cctv' => ['Ada (Aktif)', 'Tidak Ada', 'Ada (Tidak Aktif)'],
 		];
+
+		/**
+		 * Versi 1
+		 */
+		// return [
+		// 	'kamar_mandi' => ['Air Mengalir', 'Air Tidak Mengalir'],
+		// 	'dinding_tembok' => ['Baik', 'Retak', 'Indikasi Rusak'],
+		// 	'jeruji' => ['Baik', 'Kropos', 'Rusak Parah'],
+		// 	'material_platfon' => ['Cor Beton', 'GRC', 'Triplek'],
+		// 	'jendela_ventilasi' => ['Baik', 'Kropos', 'Indikasi Rusak'],
+		// 	'cctv' => ['Ada (Aktif)', 'Tidak Ada', 'Ada (Tidak Aktif)'],
+		// ];
 	}
 
 	public function getKategoriUpload(){
@@ -58,13 +71,25 @@ class reports extends Model{
 	public function getListKategoriUpload(){
 		return [
 			'cek_tahanan' => [
-				'CT01' => 'Foto Penggeledahan Badan Tahanan',
-				'CT02' => 'Foto Pengecekan Jeruji',
-        		'CT03' => 'Foto Penggeledahan Barang-barang Tahanan',
-				'CT04' => 'Foto Pengecekan Jendela/Ventilasi',
-        		'CT05' => 'Foto Pengecekan Tembok/Dinding',
-				'CT06' => 'Foto Kondisi CCTV',
-				'CT07' => 'Foto Pengecekan Plafon',
+				'kondisi_tahanan' => 'Foto Kondisi Tahanan',
+				'pengecekan_tahanan' => 'Foto Pengecekan Tahanan',
+        		'dinding_tembok' => 'Foto Pengecekan Dinding/Tembok',
+				'kondisi_jeruji' => 'Foto Pengecekan Jeruji',
+				'material_plafon' => 'Foto Pengecekan Plafon',
+				'jendela_ventilasi' => 'Foto Pengecekan Jendela/Ventilasi',
+        		'kondisi_penerangan' => 'Foto Kondisi Penerangan',
+				'kondisi_cctv' => 'Foto Kondisi CCTV',
+
+				/**
+				 * Versi 1
+				 */
+				// 'CT01' => 'Foto Penggeledahan Badan Tahanan',
+				// 'CT02' => 'Foto Pengecekan Jeruji',
+        		// 'CT03' => 'Foto Penggeledahan Barang-barang Tahanan',
+				// 'CT04' => 'Foto Pengecekan Jendela/Ventilasi',
+        		// 'CT05' => 'Foto Pengecekan Tembok/Dinding',
+				// 'CT06' => 'Foto Kondisi CCTV',
+				// 'CT07' => 'Foto Pengecekan Plafon',
 			],
 			'cek_kebakaran' => [
 				'CK01' => 'Foto Pengecekan Instalasi Listrik',
@@ -277,6 +302,57 @@ class reports extends Model{
 		return $result;
 	}
 
+	/**
+	 * Versi 1
+	 */
+	// public function getListLaporanTahanan($params){
+	// 	$page = $params['page'];
+	// 	$cari = '%'.$params['cari'].'%';
+	// 	$group = '%'.$params['group'].'%';
+	// 	$tanggal = $params['tanggal'];
+	// 	$query = [
+	// 		'(SELECT tahanan.id_cek_tahanan FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS id_laporan',
+	// 		'(SELECT tahanan.hal_menonjol FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS hal_menonjol',
+	// 		'(SELECT tahanan.datetime FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS datetime'
+	// 	];
+	// 	$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
+	// 	$q_value = 'SELECT 
+	// 			satker.id_satker, 
+	// 			satker.nama_satker, 
+	// 			satker.group_satker, '.implode(',', $query).' FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
+	// 	$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
+	// 	$keyValue = [$cari, $group];
+	// 	$size = $params['size'];
+	// 	$cursor = ($page - 1) * $size;
+	// 	$pilihan_satker = $this->getPilihanSatker();
+		
+	// 	if ($size == 0) {
+	// 		$dataValue = $this->getData($q_value, $keyValue);
+	// 	}
+	// 	else {
+	// 		$dataValue = $this->getData($q_value.' LIMIT '.$cursor.','.$size, $keyValue);
+	// 	}
+
+	// 	$contents = [];
+	// 	foreach ($dataValue['value'] as $key => $value) {
+	// 		// Check Null Value
+	// 		$value = array_map(function($v){ return !is_null($v) ? $v : ''; }, $value);
+	// 		$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+	// 		$value['tanggal_laporan'] = !empty($value['datetime']) ? FUNC::tanggal($value['datetime'], 'long_date_time') : '-';
+	// 		array_push($contents, $value);
+	// 	}
+		
+	// 	$dataCount = $this->getData($q_count, $keyValue);
+	// 	$result['number'] = $cursor + 1;
+	// 	$result['page'] = $page;
+	// 	$result['size'] = ($size > 0) ? $size : $dataCount['value'][0]['counts'];
+	// 	$result['total'] = $dataCount['value'][0]['counts'];
+	// 	$result['totalpages'] = ceil($result['total'] / $result['size']);
+	// 	$result['contents'] = $contents;
+	// 	$result['query'] = $dataValue['query'];
+	// 	return $result;
+	// }
+
 	public function getListLaporanTahanan($params){
 		$page = $params['page'];
 		$cari = '%'.$params['cari'].'%';
@@ -284,7 +360,8 @@ class reports extends Model{
 		$tanggal = $params['tanggal'];
 		$query = [
 			'(SELECT tahanan.id_cek_tahanan FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS id_laporan',
-			'(SELECT tahanan.hal_menonjol FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS hal_menonjol',
+			'(SELECT tahanan.hal_menonjol_1 FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS hal_menonjol_1',
+			'(SELECT tahanan.hal_menonjol_2 FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS hal_menonjol_2',
 			'(SELECT tahanan.datetime FROM tb_cek_tahanan tahanan WHERE (tahanan.satker_id = satker.id_satker) AND (date(tahanan.datetime) = "'.$tanggal.'")) AS datetime'
 		];
 		$where = 'WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
@@ -321,7 +398,7 @@ class reports extends Model{
 		$result['total'] = $dataCount['value'][0]['counts'];
 		$result['totalpages'] = ceil($result['total'] / $result['size']);
 		$result['contents'] = $contents;
-		// $result['query'] = $dataValue['query'];
+		$result['query'] = $dataValue['query'];
 		return $result;
 	}
 
@@ -430,8 +507,8 @@ class reports extends Model{
 				satker.id_satker, 
 				satker.nama_satker, 
 				satker.group_satker, 
-				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-				-- (SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				-- (SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				(SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
 				FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];

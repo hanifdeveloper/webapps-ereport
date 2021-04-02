@@ -58,16 +58,14 @@ Content-Type: application/json
     "jumlah_tahanan": "10",
     "surat_aktif": "10",
     "surat_expired": "0",
-    "hal_menonjol_1": "hal_menonjol_1",
     "kamar_mandi": "Air Mengalir",
     "dinding_tembok": "Baik",
-    "kondisi_jeruji": "Baik",
-    "material_plafon": "Cor Beton",
+    "jeruji": "Baik",
+    "material_platfon": "Cor Beton",
     "jendela_ventilasi": "Baik",
+    "cctv": "Ada (Aktif)",
     "barang_temuan": "",
-    "hal_menonjol_2": "hal_menonjol_2",
-    "kondisi_penerangan": "Terang",
-    "kondisi_cctv": "Ada (Aktif)",
+    "hal_menonjol": "",
     "datetime": "2021-04-02 11:23:12"
 }
 

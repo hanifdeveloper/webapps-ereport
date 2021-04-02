@@ -41,12 +41,17 @@
                                 <span style="display: block;font-size: 12px;font-weight: normal;">Last Update: <?= $data_laporan['data_entry']['lastupdate']; ?></span>
                             </h2>
                             <ul class="nav nav-tabs" data-toggle="tabs">
-                                <li class="active"><a href="#kondisi_tahanan">I. Kondisi Tahanan</a></li>
-                                <li><a href="#penggeledahan">II. Penggeledahan</a></li>
-                                <li><a href="#penerangan">III. Penerangan</a></li>
-                                <li><a href="#cctv">IV. CCTV</a></li>
+                                <li class="active"><a href="#kondisi_tahanan">Kondisi Tahanan</a></li>
+                                <li><a href="#kondisi_ruang_tahanan">Kondisi Ruang Tahanan</a></li>
+                                <li><a href="#temuan_penggeledahan">Temuan Penggeledahan</a></li>
+                                <li><a href="#cctv">CCTV</a></li>
                             </ul>
                         </div>
+
+                        <blockquote class="pull-right">
+                            <p><?= $data_laporan['data_entry']['hal_menonjol'] ?></p>
+                            <small>Hal Menonjol</small>
+                        </blockquote>
 
                         <!-- Tabs Content -->
                         <div class="tab-content">
@@ -63,14 +68,8 @@
                                     <label for="surat_expired">Jumlah SP Han (Yang Habis Waktu)</label>
                                     <?= comp\BOOTSTRAP::inputText('surat_expired', 'text', $data_laporan['data_entry']['surat_expired'], 'class="form-control" readonly') ?>
                                 </div>
-                                <div class="form-group">
-                                    <blockquote>
-                                        <p><?= $data_laporan['data_entry']['hal_menonjol_1'] ?></p>
-                                        <small>Hal Menonjol (Kondisi Tahanan)</small>
-                                    </blockquote>
-                                </div>
                             </div>
-                            <div class="tab-pane" id="penggeledahan">
+                            <div class="tab-pane" id="kondisi_ruang_tahanan">
                                 <div class="form-group">
                                     <label for="kamar_mandi">Kamar Mandi</label>
                                     <?= comp\BOOTSTRAP::inputText('kamar_mandi', 'text', $data_laporan['data_entry']['kamar_mandi'], 'class="form-control" readonly') ?>
@@ -81,37 +80,27 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jeruji">Kondisi Jeruji</label>
-                                    <?= comp\BOOTSTRAP::inputText('kondisi_jeruji', 'text', $data_laporan['data_entry']['kondisi_jeruji'], 'class="form-control" readonly') ?>
+                                    <?= comp\BOOTSTRAP::inputText('jeruji', 'text', $data_laporan['data_entry']['jeruji'], 'class="form-control" readonly') ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="material_platfon">Material Plafon</label>
-                                    <?= comp\BOOTSTRAP::inputText('material_plafon', 'text', $data_laporan['data_entry']['material_plafon'], 'class="form-control" readonly') ?>
+                                    <?= comp\BOOTSTRAP::inputText('material_platfon', 'text', $data_laporan['data_entry']['material_platfon'], 'class="form-control" readonly') ?>
                                 </div>
                                 <div class="form-group">
                                     <label for="jendela_ventilasi">Jendela/Ventilasi</label>
                                     <?= comp\BOOTSTRAP::inputText('jendela_ventilasi', 'text', $data_laporan['data_entry']['jendela_ventilasi'], 'class="form-control" readonly') ?>
                                 </div>
+                            </div>
+                            <div class="tab-pane" id="temuan_penggeledahan">
                                 <div class="form-group">
                                     <label for="barang_temuan">Barang Temuan</label>
                                     <?= comp\BOOTSTRAP::inputText('barang_temuan', 'text', $data_laporan['data_entry']['barang_temuan'], 'class="form-control" readonly') ?>
                                 </div>
-                                <div class="form-group">
-                                    <blockquote>
-                                        <p><?= $data_laporan['data_entry']['hal_menonjol_2'] ?></p>
-                                        <small>Hal Menonjol (Penggeledahan)</small>
-                                    </blockquote>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="penerangan">
-                                <div class="form-group">
-                                    <label for="kondisi_penerangan">Kondisi Penerangan</label>
-                                    <?= comp\BOOTSTRAP::inputText('kondisi_penerangan', 'text', $data_laporan['data_entry']['kondisi_penerangan'], 'class="form-control" readonly') ?>
-                                </div>
                             </div>
                             <div class="tab-pane" id="cctv">
                                 <div class="form-group">
-                                    <label for="kondisi_cctv">Kondisi CCTV</label>
-                                    <?= comp\BOOTSTRAP::inputText('kondisi_cctv', 'text', $data_laporan['data_entry']['kondisi_cctv'], 'class="form-control" readonly') ?>
+                                    <label for="cctv">Kondisi</label>
+                                    <?= comp\BOOTSTRAP::inputText('cctv', 'text', $data_laporan['data_entry']['cctv'], 'class="form-control" readonly') ?>
                                 </div>
                             </div>
                         </div>

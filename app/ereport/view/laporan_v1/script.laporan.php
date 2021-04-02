@@ -16,13 +16,7 @@ laporan.showTable = function(){
         onShow: function(content){
             content.find("[data-toggle='tooltip']").tooltip();
 
-            content.find(".hal_menonjol_1").each(function(index, element){
-                if ($(element).find("p").html() == "") {
-                    element.remove();
-                }
-            });
-
-            content.find(".hal_menonjol_2").each(function(index, element){
+            content.find(".hal_menonjol").each(function(index, element){
                 if ($(element).find("p").html() == "") {
                     element.remove();
                 }
