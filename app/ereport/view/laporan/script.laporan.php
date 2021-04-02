@@ -15,18 +15,29 @@ laporan.showTable = function(){
         data: $(".form-table").serialize(),
         onShow: function(content){
             content.find("[data-toggle='tooltip']").tooltip();
+            // console.log(kategori);
 
-            content.find(".hal_menonjol_1").each(function(index, element){
-                if ($(element).find("p").html() == "") {
-                    element.remove();
-                }
-            });
+            if (kategori == "kebakaran") {
+                content.find(".hal_menonjol").each(function(index, element){
+                    if ($(element).find("p").html() != "") {
+                        element.remove();
+                    }
+                });
+            }
 
-            content.find(".hal_menonjol_2").each(function(index, element){
-                if ($(element).find("p").html() == "") {
-                    element.remove();
-                }
-            });
+            if (kategori == "tahanan") {
+                content.find(".hal_menonjol_1").each(function(index, element){
+                    if ($(element).find("p").html() != "") {
+                        $(element).show();
+                    }
+                });
+    
+                content.find(".hal_menonjol_2").each(function(index, element){
+                    if ($(element).find("p").html() != "") {
+                        $(element).show();
+                    }
+                });
+            }
 
             content.find(".btn-detail").each(function(index, element){
                 if (this.id == "") {

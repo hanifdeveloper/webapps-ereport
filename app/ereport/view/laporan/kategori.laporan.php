@@ -84,11 +84,15 @@
                                             <td>{number}</td>
                                             <td>
                                                 {nama_satker}
-                                                <blockquote class="hal_menonjol_1 pull-right">
+                                                <blockquote class="hal_menonjol pull-right" style="display: none;">
+                                                    <p>{hal_menonjol}</p>
+                                                    <small>Hal Menonjol</small>
+                                                </blockquote>
+                                                <blockquote class="hal_menonjol_1 pull-right" style="display: none;">
                                                     <p>{hal_menonjol_1}</p>
                                                     <small>Hal Menonjol (Kondisi Tahanan)</small>
                                                 </blockquote>
-                                                <blockquote class="hal_menonjol_2 pull-right">
+                                                <blockquote class="hal_menonjol_2 pull-right" style="display: none;">
                                                     <p>{hal_menonjol_2}</p>
                                                     <small>Hal Menonjol (Penggeledahan)</small>
                                                 </blockquote>
