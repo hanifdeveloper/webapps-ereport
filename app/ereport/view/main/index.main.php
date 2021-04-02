@@ -1,7 +1,7 @@
 <body>
     <div id="page-wrapper" class="page-loading">
         <?php $this->preloader(); ?>
-        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-mini">
             <!-- Main Sidebar -->
             <?php $this->navbar(); ?>
             <!-- END Main Sidebar -->

@@ -103,6 +103,7 @@ if ($("#satker").length > 0) {
                         id_satker: app.createForm.inputKey("id_satker", form.id_satker),
                         nama_satker: app.createForm.inputText("nama_satker", form.nama_satker).attr("required", true),
                         group_satker: app.createForm.selectOption("group_satker", data.pilihan_group, form.group_satker).addClass("select-select2"),
+                        nourut: app.createForm.inputText("nourut", form.nourut).attr("required", true),
                         password: app.createForm.inputText("password", form.password).attr("required", true),
                     });
 

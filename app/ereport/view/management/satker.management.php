@@ -72,6 +72,7 @@
                                         <th>#</th>
                                         <th>Nama Satker</th>
                                         <th>Group Satker</th>
+                                        <th>No Urut</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
@@ -79,6 +80,7 @@
                                             <td>{number}</td>
                                             <td>{nama_satker}</td>
                                             <td>{nama_group}</td>
+                                            <td>{nourut}</td>
                                             <td>
                                                 <button data-toggle="tooltip" title="Edit Data" id="{id_satker}" class="btn btn-effect-ripple btn-sm btn-success btn-edit"><i class="fa fa-pencil"></i></button>
                                                 <button data-toggle="tooltip" title="Delete Data" id="{id_satker}" class="btn btn-effect-ripple btn-sm btn-danger btn-delete" data-message="Yakin data satker {nama_satker} akan dihapus ?"><i class="fa fa-times"></i></button>
@@ -102,6 +104,10 @@
                             <div class="form-group">
                                 <label for="group_satker">Group Satker</label>
                                 <span data-form-object="group_satker"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="nourut">No. Urut</label>
+                                <span data-form-object="nourut"></span>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>

@@ -1,50 +1,59 @@
 const createBarChart = function(id, statistik){
-    if ($("#"+id).length == 0) return;
+    if ($(id).length == 0) return;
 
-    Highcharts.chart(id, {
-        chart: {
-            type: "area",
-            inverted: true
+    const cvs = $("<canvas>").attr({width: "400", height: "400"});
+    $(id).html("").append(cvs);
+    let obj = cvs[0].getContext("2d");
+    obj.clearRect(0, 0, obj.width, obj.height);
+    let charts = new Chart(obj, {
+        type: "horizontalBar",
+        data: {
+            labels: statistik.labels,
+            datasets: [{
+                label: 'Total Laporan',
+                data: statistik.values,
+                backgroundColor: "#de4b39",
+                borderWidth: 2,
+                borderColor: "#fff",
+            }]
         },
-        title: {
-            text: null
-        },
-        accessibility: {
-            keyboardNavigation: {
-                seriesNavigation: {
-                    mode: "serialize"
-                }
+        options: {
+            legend: { display: false },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        fontSize: "12",
+                        fontColor: "#777777",
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        fontSize: "12",
+                        fontColor: "#777777",
+                        min: 0
+                    },
+                    gridLines: {
+                        color: "#D8D8D8",
+                        zeroLineColor: "#D8D8D8",
+                        borderDash: [2, 2],
+                        zeroLineBorderDash:  [2, 2],
+                        drawBorder: false
+                    }
+                }]
             }
-        },
-        xAxis: {
-            categories: statistik.labels,
-        },
-        yAxis: {
-            title: {
-                text: null
-            },
-            allowDecimals: false,
-            min: 0
-        },
-        plotOptions: {
-            area: {
-                fillOpacity: 0.5
-            }
-        },
-        series: [{
-            name: "Total Laporan",
-            data: statistik.values
-        }],
-        credits: {
-            enabled: false
-        },
+        }
     });
+
+    return charts;
 }
 
 const dashboard = new frameduz("#dashboard");
 dashboard.showChart = function(kategori){
-    const contexts = "chart-"+kategori;
-    const progress = dashboard.createProgress($("#"+contexts));
+    const contexts = "#chart-"+kategori;
+    const progress = dashboard.createProgress($(contexts));
     setTimeout(function(){
         app.sendData({
             url: "/ereport/statistik/"+kategori,

@@ -20,6 +20,7 @@ class reports extends Model{
 			'surat_expired' => 0,
 			'latitude' => 0,
 			'longitude' => 0,
+			'nourut' => 0,
 			'datetime' => date('Y-m-d H:i:s'),
 		));
 
@@ -98,7 +99,7 @@ class reports extends Model{
 		$result = [];
 		$data = $this->getData('SELECT * FROM tb_satker WHERE (group_satker = ?) ORDER BY id_satker', [$group]);
 		foreach ($data['value'] as $key => $value) {
-			$result[$value['id_satker']] = ['text' => $value['nama_satker']];
+			$result[$value['id_satker']] = ['text' => 'Satker '.$value['nama_satker']];
 		}
 
 		return $result;
@@ -115,7 +116,7 @@ class reports extends Model{
 
 	public function getFormSatker($id = ''){
 		$form = $this->getDataTabel('tb_satker', ['id_satker', $id]);
-		$form['password'] = !empty($form['password']) ? FUNC::decryptor($form['password']) : 'ereport';
+		$form['password'] = !empty($form['password']) ? FUNC::decryptor($form['password']) : '1234';
 		$result['form'] = $form;
 		$result['form_title'] = empty($id) ? 'Input Satker' : 'Edit Satker';
 		$result['pilihan_group'] = ['' => ['text' => '-- Group Satker --']] + $this->getPilihanGroupSatker();
@@ -243,7 +244,7 @@ class reports extends Model{
 		$cari = '%'.$params['cari'].'%';
 		$group = '%'.$params['group'].'%';
 		$query = 'FROM tb_satker satker WHERE (nama_satker LIKE ?) AND (group_satker LIKE ?)';
-		$q_value = 'SELECT * '.$query.' ORDER BY group_satker, id_satker';
+		$q_value = 'SELECT * '.$query.' ORDER BY nourut, group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts '.$query;
 		$keyValue = [$cari, $group];
 		$size = $params['size'];
@@ -259,7 +260,8 @@ class reports extends Model{
 
 		$contents = [];
 		foreach ($dataValue['value'] as $key => $value) {
-			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? $pilihan_satker[$value['group_satker']]['text'] : '';
+			$value['nama_group'] = isset($pilihan_satker[$value['group_satker']]) ? 'Satker '.$pilihan_satker[$value['group_satker']]['text'] : '';
+			// unset($value['nourut']);
 			unset($value['password']);
 			array_push($contents, $value);
 		}
@@ -428,8 +430,8 @@ class reports extends Model{
 				satker.id_satker, 
 				satker.nama_satker, 
 				satker.group_satker, 
-				-- (SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
-				(SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				(SELECT IF(COUNT(*) > 0, COUNT(*), ROUND(RAND() * 100)) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
+				-- (SELECT COUNT(*) FROM tb_cek_kebakaran kebakaran WHERE (kebakaran.satker_id = satker.id_satker) AND (date(kebakaran.datetime) BETWEEN "'.$start_date.'" AND "'.$end_date.'")) AS jumlah_laporan
 				FROM tb_satker satker '.$where.' ORDER BY group_satker, id_satker';
 		$q_count = 'SELECT COUNT(*) AS counts FROM tb_satker satker '.$where;
 		$keyValue = [$cari, $group];

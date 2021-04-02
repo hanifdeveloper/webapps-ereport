@@ -10,7 +10,7 @@
         <h1 class="h2 text-light text-center push-top-bottom animation-slideDown">
             <!-- <i class="fa fa-cube"></i>  -->
             <img src="img/app_icon.png" style="width: 130px;" alt=""><br>
-            <strong>E-Report Polda Kalbar</strong>
+            <strong><?= $this->web_description; ?></strong>
         </h1>
         <!-- END Login Header -->
 
