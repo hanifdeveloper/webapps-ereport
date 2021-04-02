@@ -37,7 +37,6 @@ CREATE TABLE `tb_cek_kebakaran` (
 
 LOCK TABLES `tb_cek_kebakaran` WRITE;
 /*!40000 ALTER TABLE `tb_cek_kebakaran` DISABLE KEYS */;
-INSERT INTO `tb_cek_kebakaran` VALUES ('6MBTDZSMGZ','54TYD','OK','2021-03-09 09:53:57');
 /*!40000 ALTER TABLE `tb_cek_kebakaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,6 +48,43 @@ DROP TABLE IF EXISTS `tb_cek_tahanan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tb_cek_tahanan` (
+  `id_cek_tahanan` varchar(25) NOT NULL DEFAULT '',
+  `satker_id` varchar(5) NOT NULL DEFAULT '',
+  `jumlah_tahanan` int(11) NOT NULL,
+  `surat_aktif` int(11) NOT NULL,
+  `surat_expired` int(11) NOT NULL,
+  `hal_menonjol_1` text NOT NULL,
+  `kamar_mandi` varchar(255) NOT NULL DEFAULT '',
+  `dinding_tembok` varchar(255) NOT NULL DEFAULT '',
+  `kondisi_jeruji` varchar(255) NOT NULL DEFAULT '',
+  `material_plafon` varchar(255) NOT NULL DEFAULT '',
+  `jendela_ventilasi` varchar(255) NOT NULL DEFAULT '',
+  `barang_temuan` varchar(255) NOT NULL DEFAULT '',
+  `hal_menonjol_2` text NOT NULL,
+  `kondisi_penerangan` varchar(255) NOT NULL DEFAULT '',
+  `kondisi_cctv` varchar(255) NOT NULL DEFAULT '',
+  `datetime` datetime NOT NULL,
+  PRIMARY KEY (`id_cek_tahanan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_cek_tahanan`
+--
+
+LOCK TABLES `tb_cek_tahanan` WRITE;
+/*!40000 ALTER TABLE `tb_cek_tahanan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_cek_tahanan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tb_cek_tahanan_backup`
+--
+
+DROP TABLE IF EXISTS `tb_cek_tahanan_backup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_cek_tahanan_backup` (
   `id_cek_tahanan` varchar(25) NOT NULL DEFAULT '',
   `satker_id` varchar(5) NOT NULL DEFAULT '',
   `jumlah_tahanan` int(11) NOT NULL,
@@ -68,13 +104,12 @@ CREATE TABLE `tb_cek_tahanan` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_cek_tahanan`
+-- Dumping data for table `tb_cek_tahanan_backup`
 --
 
-LOCK TABLES `tb_cek_tahanan` WRITE;
-/*!40000 ALTER TABLE `tb_cek_tahanan` DISABLE KEYS */;
-INSERT INTO `tb_cek_tahanan` VALUES ('HH1CK5HM0O','54TYD',10,10,0,'Air Mengalir','Baik','Baik','Cor Beton','Baik','Ada (Aktif)','','','2021-03-09 09:50:33');
-/*!40000 ALTER TABLE `tb_cek_tahanan` ENABLE KEYS */;
+LOCK TABLES `tb_cek_tahanan_backup` WRITE;
+/*!40000 ALTER TABLE `tb_cek_tahanan_backup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_cek_tahanan_backup` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -118,6 +153,7 @@ CREATE TABLE `tb_satker` (
   `id_satker` varchar(5) NOT NULL DEFAULT '',
   `group_satker` varchar(5) NOT NULL DEFAULT '',
   `nama_satker` varchar(255) NOT NULL DEFAULT '',
+  `nourut` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_satker`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -129,7 +165,7 @@ CREATE TABLE `tb_satker` (
 
 LOCK TABLES `tb_satker` WRITE;
 /*!40000 ALTER TABLE `tb_satker` DISABLE KEYS */;
-INSERT INTO `tb_satker` VALUES ('2L8J1','','Polresta Landak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('54TYD','','Polresta Pontianak Kota','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('7QXVP','','Polresta Singkawang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('H9XOF','54TYD','Polsek Pontianak Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('N8K8V','2L8J1','Polsek Sebangki','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('Q15SC','7QXVP','Polsek Singkawang Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('SLGDB','7QXVP','Polsek Singkawang Tengah','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('T0IL7','7QXVP','Polsek Singkawang Barat','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('UFZHT','54TYD','Polsek Pontianak Selatan','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('WRMUH','2L8J1','Polsek Ngabang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09');
+INSERT INTO `tb_satker` VALUES ('1YS8C','','Polres Mempawah',1,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('2L8J1','','Polres Landak',2,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('54TYD','','Polresta Pontianak Kota',3,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('7QXVP','','Polres Singkawang',4,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('H9XOF','54TYD','Pontianak Barat',5,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('HOYJ4','7QXVP','Singkawang Tengah',6,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('JOU9V','','Polres Melawi',7,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('MOAVG','','Polres Ketapang',8,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('N8K8V','2L8J1','Polsek Sebangki',9,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('PJYXD','','Polres Sintang',10,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('Q15SC','7QXVP','Polsek Singkawang Barat',11,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('SLGDB','7QXVP','Polsek Singkawang Tengah',12,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('T0IL7','7QXVP','Polsek Singkawang Barat',13,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('UFZHT','54TYD','Polsek Pontianak Selatan',14,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('WAUBN','','Polres Ketapang',15,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('WRMUH','2L8J1','Polsek Ngabang',16,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09'),('X9CXM','','Polres Kayong Utara',17,'cHZSdFMrMEREN1laZXowaFZ1MVVvQT09');
 /*!40000 ALTER TABLE `tb_satker` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -156,7 +192,7 @@ CREATE TABLE `tb_user` (
 
 LOCK TABLES `tb_user` WRITE;
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` VALUES ('3PY0Y8VXGI','singkawang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','7QXVP'),('7O0JZFU1LH','admin','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09',''),('J0NVB2IKI2','pontianak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','54TYD'),('TQM4PZ2OXV','landak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','2L8J1');
+INSERT INTO `tb_user` VALUES ('3PY0Y8VXGI','singkawang','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','7QXVP'),('7O0JZFU1LH','admin','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09',''),('J0NVB2IKI2','pontianak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','54TYD'),('TQM4PZ2OXV','Polres Landak','cHZSdFMrMEREN1laZXowaFZ1MVVvQT09','2L8J1');
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -169,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-16  7:43:35
+-- Dump completed on 2021-04-02 10:42:27
