@@ -1,6 +1,6 @@
 @baseUrl = https://ereport.local/api/v1
 @baseUrl = http://localhost:8085/api/v1
-# @baseUrl = https://e-reportpoldakalbar.id/api/v1
+@baseUrl = https://e-reportpoldakalbar.id/api/v1
 @token = grsosr7ov6mmt84k5m1av95od2
 
 ### Satker (Login)

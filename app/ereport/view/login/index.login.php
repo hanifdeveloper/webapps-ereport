@@ -46,7 +46,7 @@
         <!-- END Login Block -->
 
         <!-- Footer -->
-        <footer class="text-muted text-center animation-pullUp">
+        <footer class="text-muted text-center animation-pullUp" style="display: none;">
             <!-- <small><span id="year-copy"></span> &copy; <a href="http://goo.gl/RcsdAh" target="_blank">AppUI 2.9</a></small> -->
             <small style="text-transform: uppercase; font-weight: bold; color: #fff;"><?= $this->web_footer; ?></small>
         </footer>
