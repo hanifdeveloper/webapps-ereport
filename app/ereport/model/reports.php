@@ -72,11 +72,12 @@ class reports extends Model{
 		return [
 			'cek_tahanan' => [
 				'kondisi_tahanan' => 'Foto Kondisi Tahanan',
-				'pengecekan_tahanan' => 'Foto Pengecekan Tahanan',
-        		'dinding_tembok' => 'Foto Pengecekan Dinding/Tembok',
-				'kondisi_jeruji' => 'Foto Pengecekan Jeruji',
-				'material_plafon' => 'Foto Pengecekan Plafon',
-				'jendela_ventilasi' => 'Foto Pengecekan Jendela/Ventilasi',
+				'pengecekan_tahanan' => 'Foto Penggeledahan Badan Tahanan',
+        		'kamar_mandi' => 'Foto Pengecekan Kondisi Kamar Mandi',
+        		'dinding_tembok' => 'Foto Pengecekan Kondisi Dinding/Tembok',
+				'kondisi_jeruji' => 'Foto Pengecekan Kondisi Jeruji',
+				'material_plafon' => 'Foto Pengecekan Material Plafon',
+				'jendela_ventilasi' => 'Foto Pengecekan Kondisi Jendela/Ventilasi',
         		'kondisi_penerangan' => 'Foto Kondisi Penerangan',
 				'kondisi_cctv' => 'Foto Kondisi CCTV',
 
