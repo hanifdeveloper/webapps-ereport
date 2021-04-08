@@ -78,6 +78,7 @@ class reports extends Model{
 				'kondisi_jeruji' => 'Foto Pengecekan Kondisi Jeruji',
 				'material_plafon' => 'Foto Pengecekan Material Plafon',
 				'jendela_ventilasi' => 'Foto Pengecekan Kondisi Jendela/Ventilasi',
+				'barang_temuan' => 'Foto Barang Temuan',
         		'kondisi_penerangan' => 'Foto Kondisi Penerangan',
 				'kondisi_cctv' => 'Foto Kondisi CCTV',
 
